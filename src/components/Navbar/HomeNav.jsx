@@ -30,7 +30,7 @@ const HomeNav = () => {
               </button>
             </Link>
           ) : (
-            <Link href={"/login"}>
+            <Link href={"/Login"}>
               <button
                 type="button"
                 className="px-2 py-3 rounded-full text-white hover:underline mx-1"
