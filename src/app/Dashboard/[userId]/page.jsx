@@ -1,7 +1,9 @@
 import Image from "next/image";
-import { Stats, UserCard } from "@/components/ComponentExporter";
+import { Stats, UserCard, ReceiverForm } from "@/components/ComponentExporter";
 
 const Dashboard = ({ params }) => {
+  const currentRole = "receiver";
+
   return (
     <>
       <section className="w-full lg:h-screen min-h-screen overflow-x-hidden overflow-y-auto bg-gradient-to-r from-gray-200 via-zinc-400 to-slate-500 flex flex-col items-center">
@@ -27,13 +29,17 @@ const Dashboard = ({ params }) => {
         >
           You are currently a{" "}
           <span className="font-black text-cyan-900 uppercase text-2xl">
-            Supplier
+            {currentRole == "receiver" ? <>Receiver</> : <>Supplier</>}
           </span>
         </h3>
+        <div className="m-3 p-1 flex flex-col items-start w-full">
+          <ReceiverForm />
+        </div>
         <div className="mt-3 p-1 w-full flex flex-col items-start">
           <div className="flex flex-col w-full items-start">
             <h4 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-black bg-gray-400 px-3 py-1 rounded-full">
-              Receivers{" "}
+              {currentRole != "receiver" ? <>Receiver</> : <>Supplier</>}
+              {"s "}
               <span className="text-xl text-blue-600 font-extrabold">{`(`}</span>
               <span className="font-pacifico text-slate-700 text-sm mx-1">
                 Based on your Location
