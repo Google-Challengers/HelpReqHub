@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const ProfileForm = () => {
   const [formData, setFormData] = useState({
@@ -8,8 +9,36 @@ const ProfileForm = () => {
     email: "ky@gmail.com",
     contact: "1029384765",
     password: "",
+    image: "",
   });
   const [loading, setLoading] = useState(false);
+
+  const fetchUserData = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`/api/user/get-user-profile-data`);
+      const data = res.data;
+      if (data.success) {
+        setFormData((prev) => ({
+          ...prev,
+          name: data.userData.name,
+          email: data.userData.email,
+          contact: data.userData.contact,
+          image: data.userData.image,
+        }));
+      } else {
+        alert("Error getting user profile data");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +51,7 @@ const ProfileForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    console.log(formData);
+    console.log(formData); // handle update
 
     setLoading(false);
   };
@@ -31,6 +60,13 @@ const ProfileForm = () => {
     <>
       <form onSubmit={handleSubmit} className="flex flex-col items-center mb-4">
         <div className="flex flex-col w-full">
+          <img
+            src={formData.image}
+            alt="profile image"
+            width={150}
+            height={150}
+            className="w-32 h-32 rounded-full m-1 p-1 border-2 border-solid border-white"
+          />
           <label
             htmlFor="name"
             className="text-base font-thin text-black capitalize"
@@ -38,6 +74,7 @@ const ProfileForm = () => {
             name
           </label>
           <input
+            disabled={loading}
             type="text"
             name="name"
             id="name"
@@ -57,6 +94,7 @@ const ProfileForm = () => {
             email
           </label>
           <input
+            disabled={loading}
             type="email"
             name="email"
             id="email"
@@ -76,6 +114,7 @@ const ProfileForm = () => {
             contact number
           </label>
           <input
+            disabled={loading}
             type="tel"
             name="contact"
             id="contact"
@@ -95,6 +134,7 @@ const ProfileForm = () => {
             password
           </label>
           <input
+            disabled={loading}
             type="password"
             name="password"
             id="password"

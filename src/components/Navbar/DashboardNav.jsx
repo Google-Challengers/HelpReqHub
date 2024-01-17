@@ -82,13 +82,23 @@ const DashboardNav = () => {
                           setMobileNavIsOpen((prev) => !prev);
                         }}
                       >
-                        <span className="block py-2 px-3 rounded hover:bg-gray-700 text-white">
+                        <span className="w-full flex flex-row items-center py-2 px-3 rounded hover:bg-gray-700 text-white">
+                          <link.iconname className="text-white text-2xl font-black mx-1" />
                           {link.title}
                         </span>
                       </Link>
                     </li>
                   );
                 })}
+                <li>
+                  <span
+                    onClick={logoutHandler}
+                    className="w-full cursor-pointer py-2 px-3 rounded hover:bg-gray-700 text-white flex flex-row"
+                  >
+                    <RiLogoutBoxFill className="text-white text-2xl font-black mx-1" />
+                    Logout
+                  </span>
+                </li>
               </ul>
             </div>
           ) : (

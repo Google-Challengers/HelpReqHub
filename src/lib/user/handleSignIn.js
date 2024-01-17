@@ -19,7 +19,7 @@ export const handleSignIn = async ({
     await connectToDB();
 
     // login user if exists
-    const user = await UserModel.findOne({ name, email, contact });
+    const user = await UserModel.findOne({ email, contact });
     if (user) {
       // matching previous method and current method of authentication
       if (method !== user.method) {
@@ -33,6 +33,12 @@ export const handleSignIn = async ({
           throw new Error(`Password mismatch.`);
         }
       }
+
+      // checking the name
+      if (name != user.name) {
+        throw new Error(`Name is not correct.`);
+      }
+
       let userData = {
         id: user._id,
         name: name,
