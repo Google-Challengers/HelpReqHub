@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import { HomeNavigationBar } from "@/components/ComponentExporter";
 
 export const metadata = {
   title: "Recyclez",
@@ -9,7 +10,10 @@ const RootLayout = ({ children }) => {
   return (
     <>
       <html lang="en">
-        <body>{children}</body>
+        <body>
+          <HomeNavigationBar />
+          {children}
+        </body>
       </html>
     </>
   );
