@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSession, signIn } from "next-auth/react";
 
 const Auth = () => {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
@@ -19,6 +24,13 @@ const Auth = () => {
     });
   };
 
+  const validate = () => {
+    Object.values(formData).forEach((value) => {
+      if (!value) return false;
+    });
+    return true;
+  };
+
   const handleSumbit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -29,8 +41,29 @@ const Auth = () => {
       return;
     }
 
-    console.log(formData); // make request to server
-    setLoading(false);
+    console.log(formData);
+
+    try {
+      if (validate()) {
+        const res = await signIn("user_credentials", {
+          redirect: false,
+          name: formData.userName,
+          contact: formData.contact,
+          email: formData.email,
+          password: formData.password,
+        });
+
+        if (res?.ok) {
+          router.replace("/");
+        } else {
+          alert("[!] Error, Invalid Details.");
+        }
+      }
+    } catch (err) {
+      console.error("Error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 const HomeNav = () => {
+  const { data: session, status } = useSession();
   const pathname = usePathname();
-
-  const isLoggedIn = false;
 
   return (
     <>
@@ -31,14 +31,24 @@ const HomeNav = () => {
           </h1>
         </Link>
         <div className="flex flex-row items-center justify-evenly mx-1">
-          {isLoggedIn ? (
-            <Link href={"/Dashboard/test1"}>
+          {status === "authenticated" ? (
+            <Link
+              href={"/Dashboard/test1"}
+              className="flex flex-col sm:flex-row items-center justify-between gap-1"
+            >
               <button
                 type="button"
                 className="px-2 py-3 rounded-full text-white hover:underline mx-1"
               >
                 Dashboard
               </button>
+              <img
+                src={session?.user?.image}
+                alt="/"
+                width={40}
+                height={40}
+                className="w-8 h-8 rounded-full border-2 border-solid border-white mx-1 p-1"
+              />
             </Link>
           ) : (
             <Link href={"/Login"}>
