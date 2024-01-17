@@ -41,8 +41,6 @@ const Auth = () => {
       return;
     }
 
-    console.log(formData);
-
     try {
       if (validate()) {
         const res = await signIn("user_credentials", {

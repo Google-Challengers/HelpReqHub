@@ -31,9 +31,13 @@ const HomeNav = () => {
           </h1>
         </Link>
         <div className="flex flex-row items-center justify-evenly mx-1">
-          {status === "authenticated" ? (
+          {status === "loading" ? (
+            <>
+              <span className="text-xs text-white">Loading</span>
+            </>
+          ) : status === "authenticated" ? (
             <Link
-              href={"/Dashboard/test1"}
+              href={`/Dashboard/${session?.user?.name}`}
               className="flex flex-col sm:flex-row items-center justify-between gap-1"
             >
               <button

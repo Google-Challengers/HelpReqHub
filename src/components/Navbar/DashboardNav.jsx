@@ -6,20 +6,29 @@ import { HamburgerIconBtn, CloseIconBtn } from "../ComponentExporter";
 import { MdDashboardCustomize } from "react-icons/md";
 import { ImProfile } from "react-icons/im";
 import { RiLogoutBoxFill } from "react-icons/ri";
-
-const Links = [
-  {
-    title: "Dashboard",
-    linkto: "/Dashboard/test1",
-    iconname: MdDashboardCustomize,
-  },
-  { title: "Profile", linkto: "/Dashboard/Profile", iconname: ImProfile },
-];
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const DashboardNav = () => {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
   const [mobileNavIsOpen, setMobileNavIsOpen] = useState(false);
   const [navwidth, setNavwidth] = useState(100);
   const [navLinkVisibility, setNavLinkVisibility] = useState(false);
+
+  const Links = [
+    {
+      title: "Dashboard",
+      linkto: `/Dashboard/${session?.user?.name}`,
+      iconname: MdDashboardCustomize,
+    },
+    {
+      title: "Profile",
+      linkto: `/Dashboard/${session?.user?.name}/Profile`,
+      iconname: ImProfile,
+    },
+  ];
 
   const incNavWidth = () => {
     setNavwidth(navwidth + 100);
@@ -32,7 +41,8 @@ const DashboardNav = () => {
   };
 
   const logoutHandler = () => {
-    console.log("Logged Out!");
+    signOut({ redirect: false });
+    router.replace("/");
   };
 
   return (

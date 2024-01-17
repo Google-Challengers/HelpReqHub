@@ -1,6 +1,13 @@
+"use client";
+
 import { OAuth, Auth } from "@/components/ComponentExporter";
+import { Wait } from "@/components/ComponentExporter";
+import NotFound from "../not-found";
+import { useSession } from "next-auth/react";
 
 const Login = () => {
+  const { data: session, status } = useSession();
+
   return (
     <section className="w-full min-h-screen text-white bg-black flex flex-col items-center">
       <div className="flex flex-col items-center justify-between">
@@ -14,19 +21,29 @@ const Login = () => {
           An end-to-end Waste Management System
         </h2>
       </div>
-      <div className="m-3 w-full flex flex-col items-center">
-        <Auth />
-        <div className="w-full flex flex-row items-center justify-between max-w-md">
-          <span className="w-full h-[1px] bg-slate-400 mx-2"></span>
-          <span className="text-base text-slate-400 font-light mx-1 mb-1">
-            or
-          </span>
-          <span className="w-full h-[1px] bg-slate-400 mx-2"></span>
-        </div>
-      </div>
-      <div className="flex flex-col">
-        <OAuth />
-      </div>
+      {status === "loading" ? (
+        <Wait />
+      ) : status === "unauthenticated" ? (
+        <>
+          <div className="m-3 w-full flex flex-col items-center">
+            <Auth />
+            <div className="w-full flex flex-row items-center justify-between max-w-md">
+              <span className="w-full h-[1px] bg-slate-400 mx-2"></span>
+              <span className="text-base text-slate-400 font-light mx-1 mb-1">
+                or
+              </span>
+              <span className="w-full h-[1px] bg-slate-400 mx-2"></span>
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <OAuth />
+          </div>
+        </>
+      ) : (
+        <>
+          <NotFound />
+        </>
+      )}
     </section>
   );
 };
