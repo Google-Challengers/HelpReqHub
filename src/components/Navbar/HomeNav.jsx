@@ -21,7 +21,7 @@ const HomeNav = () => {
         </Link>
         <div className="flex flex-row items-center justify-evenly mx-1">
           {isLoggedIn ? (
-            <Link href={"/dashboard"}>
+            <Link href={"/Dashboard"}>
               <button
                 type="button"
                 className="px-2 py-3 rounded-full text-white hover:underline mx-1"
