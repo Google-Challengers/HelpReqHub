@@ -78,7 +78,7 @@ const ProfileForm = () => {
         await fetchUserData();
         setFormData((prev) => ({ ...prev, password: "" }));
         alert("Profile updated successfully");
-        router.replace(`/Dashboard/${session?.user?.name}/Profile`);
+        router.replace(`/Dashboard/${formData.name}/Profile`);
       } else {
         alert("Error updating profile");
       }

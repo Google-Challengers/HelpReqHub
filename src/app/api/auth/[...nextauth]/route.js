@@ -73,9 +73,9 @@ export const authOptions = {
         account?.provider == "facebook"
       ) {
         const res = await handleSignIn({
-          username: user.name,
+          name: user.name,
           email: user.email,
-          contact: user.contact,
+          contact: user.id,
           password: "",
           image: user.image,
           method: "oauthprovider",
