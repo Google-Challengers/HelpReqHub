@@ -10,7 +10,7 @@ import { RiLogoutBoxFill } from "react-icons/ri";
 const Links = [
   {
     title: "Dashboard",
-    linkto: "/Dashboard",
+    linkto: "/Dashboard/test1",
     iconname: MdDashboardCustomize,
   },
   { title: "Profile", linkto: "/Dashboard/Profile", iconname: ImProfile },

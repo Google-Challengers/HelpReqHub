@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Stats, UserCard } from "@/components/ComponentExporter";
 
-const Dashboard = () => {
+const Dashboard = ({ params }) => {
   return (
     <>
       <section className="w-full lg:h-screen min-h-screen overflow-x-hidden overflow-y-auto bg-gradient-to-r from-gray-200 via-zinc-400 to-slate-500 flex flex-col items-center">
