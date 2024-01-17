@@ -2,12 +2,17 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const ProfileForm = () => {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
-    name: "Karan Yadav",
-    email: "ky@gmail.com",
-    contact: "1029384765",
+    name: "",
+    email: "",
+    contact: "",
     password: "",
     image: "",
   });
@@ -47,13 +52,41 @@ const ProfileForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    console.log(formData); // handle update
+    if (formData.name === session?.user?.name && !formData.password) {
+      setLoading(false);
+      return;
+    }
 
-    setLoading(false);
+    try {
+      const res = await axios.post("/api/user/update-profile", {
+        name: formData.name,
+        password: formData.password,
+      });
+      const data = res.data;
+      if (data?.success) {
+        await signIn("user_credentials", {
+          redirect: false,
+          name: formData.name,
+          email: formData.email,
+          contact: formData.contact,
+          password: formData.password,
+        });
+        await fetchUserData();
+        setFormData((prev) => ({ ...prev, password: "" }));
+        alert("Profile updated successfully");
+        router.replace(`/Dashboard/${session?.user?.name}/Profile`);
+      } else {
+        alert("Error updating profile");
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -82,8 +115,7 @@ const ProfileForm = () => {
             autoComplete="off"
             value={formData?.name}
             onChange={handleChange}
-            className="border-2 text-black border-solid border-fuchsia-400 outline-none px-3 py-4 m-2 rounded-md shadow-md"
-            required
+            className="border-2 disabled:cursor-not-allowed text-black border-solid border-fuchsia-400 outline-none px-3 py-4 m-2 rounded-md shadow-md"
           />
         </div>
         <div className="flex flex-col w-full">
@@ -94,7 +126,7 @@ const ProfileForm = () => {
             email
           </label>
           <input
-            disabled={loading}
+            disabled={true}
             type="email"
             name="email"
             id="email"
@@ -102,7 +134,7 @@ const ProfileForm = () => {
             autoComplete="off"
             value={formData?.email}
             onChange={handleChange}
-            className="border-2 text-black border-solid border-fuchsia-400 outline-none px-3 py-4 m-2 rounded-md shadow-md"
+            className="border-2 disabled:cursor-not-allowed text-black border-solid border-fuchsia-400 outline-none px-3 py-4 m-2 rounded-md shadow-md"
             required
           />
         </div>
@@ -114,7 +146,7 @@ const ProfileForm = () => {
             contact number
           </label>
           <input
-            disabled={loading}
+            disabled={true}
             type="tel"
             name="contact"
             id="contact"
@@ -122,7 +154,7 @@ const ProfileForm = () => {
             autoComplete="off"
             value={formData?.contact}
             onChange={handleChange}
-            className="border-2 text-black border-solid border-fuchsia-400 outline-none px-3 py-4 m-2 rounded-md shadow-md"
+            className="border-2 disabled:cursor-not-allowed text-black border-solid border-fuchsia-400 outline-none px-3 py-4 m-2 rounded-md shadow-md"
             required
           />
         </div>
@@ -142,14 +174,16 @@ const ProfileForm = () => {
             autoComplete="off"
             value={formData?.password}
             onChange={handleChange}
-            className="border-2 text-black border-solid border-fuchsia-400 outline-none px-3 py-4 m-2 rounded-md shadow-md"
-            required
+            className="border-2 disabled:cursor-not-allowed text-black border-solid border-fuchsia-400 outline-none px-3 py-4 m-2 rounded-md shadow-md"
           />
         </div>
         <button
           type="submit"
-          disabled={loading}
-          className="self-start mx-4 capitalize px-3 py-4 bg-blue-600 hover:bg-blue-500 font-semibold text-white rounded-md disabled:cursor-wait"
+          disabled={
+            loading ||
+            (formData.name === session?.user?.name && !formData.password)
+          }
+          className="self-start mx-4 capitalize px-3 py-4 bg-blue-600 hover:bg-blue-500 font-semibold text-white rounded-md disabled:cursor-not-allowed disabled:bg-blue-300"
         >
           {loading ? <>Processing...</> : <>Update Profile</>}
         </button>

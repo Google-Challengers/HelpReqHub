@@ -40,8 +40,8 @@ const DashboardNav = () => {
     setNavLinkVisibility(!navLinkVisibility);
   };
 
-  const logoutHandler = () => {
-    signOut({ redirect: false });
+  const logoutHandler = async () => {
+    await signOut({ redirect: false });
     router.replace("/");
   };
 
