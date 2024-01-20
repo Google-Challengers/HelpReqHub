@@ -5,6 +5,10 @@ import Link from "next/link";
 import { HamburgerIconBtn, CloseIconBtn } from "../ComponentExporter";
 import { MdDashboardCustomize } from "react-icons/md";
 import { ImProfile } from "react-icons/im";
+import { RiCommunityFill } from "react-icons/ri";
+import { GrMap } from "react-icons/gr";
+import { FaUserCog } from "react-icons/fa";
+import { RiGlobalFill } from "react-icons/ri";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -24,9 +28,29 @@ const DashboardNav = () => {
       iconname: MdDashboardCustomize,
     },
     {
+      title: "Role",
+      linkto: `/Dashboard/${session?.user?.name}/Role`,
+      iconname: FaUserCog,
+    },
+    {
+      title: "Map",
+      linkto: `/Dashboard/${session?.user?.name}/Location`,
+      iconname: GrMap,
+    },
+    {
       title: "Profile",
       linkto: `/Dashboard/${session?.user?.name}/Profile`,
       iconname: ImProfile,
+    },
+    {
+      title: "Global Requests",
+      linkto: `/Dashboard/${session?.user?.name}/GlobalRequests`,
+      iconname: RiGlobalFill,
+    },
+    {
+      title: "Join Community",
+      linkto: `/Dashboard/${session?.user?.name}/Communities`,
+      iconname: RiCommunityFill,
     },
   ];
 
