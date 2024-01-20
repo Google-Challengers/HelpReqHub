@@ -12,3 +12,6 @@ export { default as Stats } from "@/components/Dashboard/Stats";
 export { default as AuthProvider } from "@/components/Auth/AuthProvider";
 export { default as Wait } from "@/components/Wait/Wait";
 export { default as ReceiverForm } from "@/components/Receiver/ReceiverForm";
+export { default as CommunityCard } from "@/components/Communities/CommunityCard";
+export { default as CommunityOne } from "@/components/Communities/CommunityOne";
+export { default as NewCommunityForm } from "@/components/Communities/NewCommunityForm";
