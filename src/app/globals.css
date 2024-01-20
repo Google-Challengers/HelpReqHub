@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: white black;
+  scroll-behavior: smooth;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+*::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+
+*::-webkit-scrollbar-track {
+  background: black;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
+::selection {
+  background: #fff;
+  color: #000;
+}
