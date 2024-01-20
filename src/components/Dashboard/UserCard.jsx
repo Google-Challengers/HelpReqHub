@@ -19,8 +19,8 @@ const UserCard = () => {
           </div>
           <p className="mb-3 font-normal text-gray-400 flex flex-col">
             <span>Name: Karan Yadav</span>
-            <span>Amount: 130 kg</span>
             <span>By: Jan, 24 2024</span>
+            <span>Status: Active</span>
           </p>
           <Link
             href={"#"}

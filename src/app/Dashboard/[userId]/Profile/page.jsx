@@ -1,12 +1,6 @@
-"use client";
-
-import Link from "next/link";
 import { ProfileForm } from "@/components/ComponentExporter";
-import { useSession } from "next-auth/react";
 
 const Profile = () => {
-  const { data: session, status } = useSession();
-
   return (
     <>
       <section className="w-full lg:h-screen min-h-screen overflow-x-hidden overflow-y-auto bg-gradient-to-b from-fuchsia-100 via-pink-300 to-rose-500 flex flex-col items-center">
@@ -18,32 +12,6 @@ const Profile = () => {
         </h1>
         <div className="flex flex-col w-full p-5">
           <ProfileForm />
-          <div className="w-full">
-            <h3 className="text-base font-thin text-black capitalize">
-              Location:
-            </h3>
-            <Link href={`/Dashboard/${session?.user?.name}/Location`}>
-              <button
-                type="button"
-                className="m-3 px-3 py-4 text-white bg-black rounded-full font-black text-lg"
-              >
-                Set Up Location
-              </button>
-            </Link>
-            <h3 className="text-base font-thin text-black capitalize">
-              Role <span className="text-black font-black">{`(`}</span>
-              Supplier/Receiver
-              <span className="text-black font-black">{`)`}</span>:
-            </h3>
-            <Link href={`/Dashboard/${session?.user?.name}/Role`}>
-              <button
-                type="button"
-                className="m-3 px-3 py-4 text-white bg-black rounded-full font-black text-lg"
-              >
-                Select your Role
-              </button>
-            </Link>
-          </div>
         </div>
       </section>
     </>
