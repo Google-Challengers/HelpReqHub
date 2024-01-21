@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import axios from "axios";
 
-const MessageForm = () => {
+const MessageForm = ({ comName, updateState }) => {
   const [formData, setFormData] = useState({ msg: "" });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -12,7 +14,30 @@ const MessageForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    if (!formData.msg) return;
+
+    setLoading(true);
+
+    try {
+      const res = await axios.post(
+        `/api/user/request/community/logs/new-message`,
+        {
+          communityName: comName,
+          message: formData.msg,
+        }
+      );
+      if (res.data.success) {
+        setFormData((prev) => ({ ...prev, msg: "" }));
+        updateState((prev) => !prev);
+      } else {
+        alert("Error in messaging");
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,7 +55,8 @@ const MessageForm = () => {
         />
         <button
           type="submit"
-          className="px-2 py-3 rounded-md bg-rose-600 text-white uppercase font-black"
+          disabled={loading}
+          className="px-2 py-3 rounded-md bg-rose-600 disabled:bg-rose-300 disabled:cursor-wait text-white uppercase font-black"
         >
           Send
         </button>

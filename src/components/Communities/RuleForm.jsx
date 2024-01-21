@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import axios from "axios";
 
-const RuleForm = () => {
+const RuleForm = ({ comName, updateState }) => {
   const [formData, setFormData] = useState({ rule: "" });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -12,7 +14,30 @@ const RuleForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    if (!formData.rule) return;
+
+    setLoading(true);
+
+    try {
+      const res = await axios.post(
+        `/api/user/request/community/logs/new-rule/set`,
+        {
+          communityName: comName,
+          rule: formData.rule,
+        }
+      );
+      if (res.data.success) {
+        setFormData((prev) => ({ ...prev, rule: "" }));
+        updateState((prev) => !prev);
+      } else {
+        alert("Error setting new rule");
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,7 +55,8 @@ const RuleForm = () => {
         />
         <button
           type="submit"
-          className="px-2 py-3 rounded-md bg-yellow-600 text-white uppercase font-black"
+          disabled={loading}
+          className="px-2 py-3 rounded-md bg-yellow-600 disabled:bg-yellow-300 disabled:cursor-wait text-white uppercase font-black"
         >
           SET
         </button>

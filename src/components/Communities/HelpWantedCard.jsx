@@ -1,42 +1,98 @@
-const HelpWantedCard = () => {
+"use client";
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Loading, NotFound } from "../ComponentExporter";
+import { getLocaleTime } from "../ConvertTime";
+
+const HelpWantedCard = ({ comName, states = [] }) => {
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getRequests = async () => {
+    setLoading(true);
+
+    try {
+      const res = await axios.post(
+        `/api/user/request/community/logs/get-logs/requests`,
+        { communityName: comName }
+      );
+      if (res.data.success) {
+        setRequests((prev) => res.data.helpWanted);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getRequests();
+  }, [...states]);
+
   return (
     <>
-      <div className="bg-white w-fit p-2 rounded-md flex flex-col items-start m-1">
-        <div className="flex flex-row items-start">
-          <img
-            src={`/default-user.webp`}
-            alt="/"
-            className="w-11 h-11 rounded-full border-2 border-solid border-white"
-          />
-          <div className="flex flex-col items-start mx-1">
-            <h1 className="font-black text-black text-base">Karan Yadav</h1>
-            <h2 className="text-slate-700 font-light text-sm">
-              karan@gmail.com
-            </h2>
+      {loading ? (
+        <>
+          <Loading msg={"Fetching Requests"} />
+        </>
+      ) : requests.length === 0 ? (
+        <>
+          <NotFound msg={"[!] No one asked for help"} />
+        </>
+      ) : (
+        requests.map((request, i) => (
+          <div
+            key={i}
+            className="bg-white w-fit p-2 rounded-md flex flex-col items-start m-1"
+          >
+            <div className="flex flex-col sm:flex-row items-start w-full justify-between">
+              <div className="flex flex-row items-center">
+                <img
+                  src={request.image}
+                  alt="/"
+                  className="w-11 h-11 rounded-full border-2 border-solid border-white"
+                />
+                <div className="flex flex-col items-start mx-1">
+                  <h1 className="font-black text-black text-base">
+                    {request.name}
+                  </h1>
+                  <h2 className="text-slate-700 font-light text-sm">
+                    {request.email}
+                  </h2>
+                </div>
+              </div>
+              <div className="flex flex-col items-start m-1">
+                <span className="m-1 text-black font-normal text-xs">
+                  U-ID: {request.userId}
+                </span>
+                <span className="m-1 text-black font-normal text-xs">
+                  Requested at: {getLocaleTime(request.createdAt)}
+                </span>
+              </div>
+            </div>
+            <h4 className="text-black m-1">
+              <span className="text-slate-700 mr-1 font-normal p-1 rounded-lg bg-yellow-500">
+                Title:
+              </span>
+              <span>{request.title}</span>
+            </h4>
+            <p className="text-black m-1">
+              <span className="text-slate-700 mr-1 font-normal p-1 rounded-lg bg-yellow-500">
+                Description:
+              </span>
+              <span className="font-medium text-base">{request.desc}</span>
+            </p>
+            <p className="text-black m-1 bg-green-700 p-1 rounded-md">
+              <span className="text-black mr-1 font-normal">Time:</span>
+              <span className="font-medium text-base text-white">
+                By {request.time}
+              </span>
+            </p>
           </div>
-        </div>
-        <h4 className="text-black m-1">
-          <span className="text-slate-700 mr-1 font-normal">Title:</span>
-          <span>Lorem ipsum dolor sit amet.</span>
-        </h4>
-        <p className="text-black m-1">
-          <span className="text-slate-700 mr-1 font-normal">Description:</span>
-          <span className="font-medium text-base">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias iusto
-            minima mollitia laboriosam veritatis magni laudantium et qui quidem
-            modi voluptas consequuntur corrupti quibusdam ipsa ut repellendus
-            commodi repudiandae adipisci, vel ipsam, vitae porro quia? Enim esse
-            itaque ducimus placeat suscipit blanditiis quisquam perferendis
-            incidunt ut error eligendi, magni explicabo?
-          </span>
-        </p>
-        <p className="text-black m-1 bg-green-700 p-1 rounded-md">
-          <span className="text-black mr-1 font-normal">Time:</span>
-          <span className="font-medium text-base text-white">
-            By 29-01-2024
-          </span>
-        </p>
-      </div>
+        ))
+      )}
     </>
   );
 };

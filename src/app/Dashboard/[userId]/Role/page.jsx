@@ -1,4 +1,4 @@
-import { CiBoxes, CiBag1 } from "react-icons/ci";
+import { SelectRoleBtns } from "@/components/ComponentExporter";
 
 const Role = () => {
   return (
@@ -7,18 +7,14 @@ const Role = () => {
         <h1 className="font-black text-emerald-900 text-6xl md:7xl lg:text-9xl p-3 m-2 flex flex-col items-start w-full">
           Select Role
           <span className="text-xs md:text-sm font-thin text-gray-700 mx-1">
-            Set up your role, get results based on your role.
+            Set up your role, get results based on your role.{" "}
+            <span className="font-normal text-black">
+              ( * for global requestors )
+            </span>
           </span>
         </h1>
         <div className="w-full flex flex-col lg:flex-row lg:justify-center items-center p-3">
-          <div className="cursor-pointer bg-black text-white p-3 m-2 flex flex-col items-center justify-between rounded-md hover:bg-gray-700">
-            <CiBag1 className="text-9xl font-black" />
-            <span className="text-5xl font-bold m-2">Receiver</span>
-          </div>
-          <div className="cursor-pointer bg-black text-white p-3 m-2 flex flex-col items-center justify-between rounded-md hover:bg-gray-700">
-            <CiBoxes className="text-9xl font-black" />
-            <span className="text-5xl font-bold m-2">Supplier</span>
-          </div>
+          <SelectRoleBtns />
         </div>
         <div className="flex flex-row w-full p-6">
           <div className="p-2 w-1/2">
@@ -26,8 +22,11 @@ const Role = () => {
               Who is Receiver?
             </h3>
             <p className="w-fit text-black text-left font-thin">
-              The Receiver will see all the supplier joined and can contact to
-              them for the goods that they are supplying.
+              The Receiver can request the resources what he/she want. Then
+              supplier will see that request and send you message to help you
+              for that request. Then you have to contact with the supplier.
+              After the request is successfully resolved then you(receiver) will
+              have to update the status of that request.
             </p>
           </div>
           <div className="p-2 w-1/2">
@@ -35,7 +34,10 @@ const Role = () => {
               Who is Supplier?
             </h3>
             <p className="w-fit text-black text-left font-thin">
-              Their role is provide the goods on time and in better condition.
+              Their role is to provide the goods on time and in better
+              condition. Go to{" "}
+              <span className="font-bold">Global Requests</span> tab to see all
+              the requests.
             </p>
           </div>
         </div>

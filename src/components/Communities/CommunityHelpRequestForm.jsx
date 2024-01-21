@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { FaPenNib } from "react-icons/fa";
+import axios from "axios";
 
-const CommunityHelpRequestForm = () => {
+const CommunityHelpRequestForm = ({ comName, updateState }) => {
   const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -22,7 +24,25 @@ const CommunityHelpRequestForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // make request to the server
+
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `/api/user/request/community/logs/new-request`,
+        { communityName: comName, ...formData }
+      );
+      if (res.data.success) {
+        setFormData((prev) => ({ title: "", desc: "", time: "" }));
+        updateState((prev) => !prev);
+      } else {
+        alert("Error creting new request");
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+
     setShowForm((prev) => !prev);
   };
 
@@ -58,7 +78,7 @@ const CommunityHelpRequestForm = () => {
               id="title"
               value={formData.title}
               onChange={handleChange}
-              placeholder={`"Food", "E-Waste", etc...`}
+              placeholder={`Why you want help?`}
               required
               className="outline-none max-w-md text-white font-medium text-base px-3 py-2 mx-2 w-full mb-3 mt-1 bg-slate-800"
             />
@@ -103,7 +123,8 @@ const CommunityHelpRequestForm = () => {
           <div className="flex flex-col items-start w-full p-1">
             <button
               type="submit"
-              className="flex flex-row items-center bg-green-500 gap-2 m-1 p-2 rounded-md cursor-pointer text-white"
+              disabled={loading}
+              className="flex flex-row items-center bg-green-500 disabled:bg-green-300 disabled:cursor-wait gap-2 m-1 p-2 rounded-md cursor-pointer text-white"
             >
               <FaPenNib className="text-3xl" />
               <span className="text-xl font-black text-white">Request</span>

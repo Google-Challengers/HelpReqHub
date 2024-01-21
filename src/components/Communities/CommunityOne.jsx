@@ -1,4 +1,6 @@
-import RulesCard from "./RulesCard";
+"use client";
+
+import RulesCards from "./RulesCards";
 import MemberCard from "./MemberCard";
 import MessageCard from "./MessageCard";
 import RuleForm from "./RuleForm";
@@ -6,109 +8,161 @@ import MessageForm from "./MessageForm";
 import PendingRequestsCard from "./PendingRequestsCard";
 import CommunityHelpRequestForm from "./CommunityHelpRequestForm";
 import HelpWantedCard from "./HelpWantedCard";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Loading } from "../ComponentExporter";
+import BecomeMember from "./BecomeMember";
 
-const CommunityOne = () => {
-  const isAdmin = true;
-  const joined = true;
-  const requests = [1, 2, 3];
-  const members = [1, 2, 3, 4, 5];
-  const helpwanted = [1, 2, 3, 4];
-  const rules = ["Rule 1", "Rule 2", "Rule 3", "Rule 4", "Rule 5"];
-  const messages = [
-    { time: "01-01-2024 1:00 P.M", msg: "message 1" },
-    { time: "02-01-2024 1:30 P.M", msg: "message 2" },
-    { time: "03-01-2024 4:50 P.M", msg: "message 3" },
-    { time: "05-01-2024 5:00 P.M", msg: "message 4" },
-  ];
+const CommunityOne = ({ name }) => {
+  const [checksData, setChecksData] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const [toggleChecksState, setToggleChecksState] = useState(false);
+  const [toggleRulesState, setToggleRulesState] = useState(false);
+  const [toggleMessageState, setToggleMessageState] = useState(false);
+  const [toggleHelpState, setToggleHelpState] = useState(false);
+  const [addedNewMember, setAddedNewMember] = useState(false);
+
+  const handleChecks = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `/api/user/request/community/check-user-status`,
+        { communityName: name }
+      );
+      if (res.data.success) {
+        setChecksData((prev) => res.data.user_checks);
+      } else {
+        alert("Error while checking your member status");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleChecks();
+  }, [toggleChecksState]);
 
   return (
     <>
-      <div className="w-full">
-        <div className="my-1 p-1">
-          {!joined ? (
-            <>
-              <button
-                type="button"
-                className="text-blue-700 text-lg font-black bg-white border-2 border-solid border-blue-600 px-1 py-2"
-              >
-                Become a member
-              </button>
-            </>
-          ) : (
-            <>
-              <h4 className="p-2 rounded-full text-white bg-green-700 font-black text-lg w-fit">
-                🦄 You are {!isAdmin ? <>member</> : <>Admin</>}
-              </h4>
-            </>
-          )}
-        </div>
-        <div className="my-2 p-2 flex flex-col items-start w-full">
-          {isAdmin && (
-            <div className="flex flex-col items-start w-full p-2">
-              <h3 className="font-semibold text-xl capitalize">
-                Pending Requests
-              </h3>
-              <hr className="bg-black h-[3px] my-1 w-full" />
-              <div className="flex flex-row w-full flex-wrap max-h-[100vh] overflow-auto">
-                {requests.map((request, i) => (
-                  <div key={i} className="flex flex-col items-center">
-                    <PendingRequestsCard />
+      {loading ? (
+        <Loading msg={"Wait Checking your membership"} />
+      ) : (
+        checksData && (
+          <>
+            <div className="w-full flex flex-col items-start">
+              <h2 className="font-black text-black text-3xl md:text-4xl lg:text-5xl p-3 m-2 flex flex-col items-start w-full uppercase">
+                {checksData?.name}
+                <span className="text-xs md:text-sm font-thin text-gray-700 mx-1 my-2 lowercase">
+                  {checksData?.desc}
+                </span>
+              </h2>
+            </div>
+            <div className="w-full">
+              <div className="my-1 p-1">
+                {!checksData?.joined ? (
+                  <>
+                    <BecomeMember
+                      comName={name}
+                      updateState={setToggleChecksState}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <h4 className="p-2 rounded-full text-white bg-green-700 font-black text-lg w-fit">
+                      🦄 You are{" "}
+                      {!checksData?.isAdmin ? <>member</> : <>Admin</>}
+                    </h4>
+                  </>
+                )}
+              </div>
+              <div className="my-2 p-2 flex flex-col items-start w-full">
+                <div className="flex flex-col items-start w-full p-2">
+                  <h3 className="font-semibold text-xl capitalize">Rules</h3>
+                  <hr className="bg-black h-[3px] my-1 w-full" />
+                  {checksData?.isAdmin && (
+                    <RuleForm
+                      comName={name}
+                      updateState={setToggleRulesState}
+                    />
+                  )}
+                  <div className="flex flex-col w-full max-h-[100vh] overflow-auto">
+                    <RulesCards comName={name} states={[toggleRulesState]} />
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-          {joined && (
-            <div className="flex flex-col items-start w-full p-2">
-              <h3 className="font-semibold text-xl capitalize">
-                Current Members
-              </h3>
-              <hr className="bg-black h-[3px] my-1 w-full" />
-              <div className="flex flex-row w-full flex-wrap max-h-[100vh] overflow-auto">
-                {members.map((member, i) => (
-                  <MemberCard key={i} />
-                ))}
-              </div>
-            </div>
-          )}
-          <div className="flex flex-col items-start w-full p-2">
-            <h3 className="font-semibold text-xl capitalize">Rules</h3>
-            <hr className="bg-black h-[3px] my-1 w-full" />
-            {isAdmin && <RuleForm />}
-            <div className="flex flex-col w-full max-h-[100vh] overflow-auto">
-              {rules.map((rule, i) => (
-                <div key={i} className="flex flex-col items-start">
-                  <RulesCard n={i + 1} desc={rule} />
                 </div>
-              ))}
-            </div>
-          </div>
-          {joined && (
-            <div className="flex flex-col items-start w-full p-2">
-              <h3 className="font-semibold text-xl capitalize">Messages</h3>
-              <hr className="bg-black h-[3px] my-1 w-full" />
-              {isAdmin && <MessageForm />}
-              <div className="flex flex-col w-full max-h-[100vh] overflow-auto">
-                {messages.map((message, i) => (
-                  <MessageCard key={i} time={message.time} desc={message.msg} />
-                ))}
+                {checksData?.joined && (
+                  <>
+                    <div className="flex flex-col items-start w-full p-2">
+                      <h3 className="font-semibold text-xl capitalize">
+                        Current Members
+                      </h3>
+                      <hr className="bg-black h-[3px] my-1 w-full" />
+                      <div className="flex flex-row w-full flex-wrap max-h-[100vh] overflow-auto">
+                        <MemberCard comName={name} states={[addedNewMember]} />
+                      </div>
+                    </div>
+                    {checksData?.isAdmin && (
+                      <div className="flex flex-col items-start w-full p-2">
+                        <h3 className="font-semibold text-xl capitalize">
+                          Pending Requests
+                        </h3>
+                        <hr className="bg-black h-[3px] my-1 w-full" />
+                        <div className="flex flex-row w-full flex-wrap max-h-[100vh] overflow-auto">
+                          <PendingRequestsCard
+                            comName={name}
+                            updateState={setAddedNewMember}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+                {checksData?.joined && (
+                  <div className="flex flex-col items-start w-full p-2">
+                    <h3 className="font-semibold text-xl capitalize">
+                      Messages
+                    </h3>
+                    <hr className="bg-black h-[3px] my-1 w-full" />
+                    {checksData?.isAdmin && (
+                      <MessageForm
+                        comName={name}
+                        updateState={setToggleMessageState}
+                      />
+                    )}
+                    <div className="flex flex-col w-full max-h-[100vh] overflow-auto">
+                      <MessageCard
+                        comName={name}
+                        states={[toggleMessageState]}
+                      />
+                    </div>
+                  </div>
+                )}
+                {checksData?.joined && (
+                  <div className="flex flex-col items-start w-full p-2">
+                    <h3 className="font-semibold text-xl capitalize">
+                      Help Wanted
+                    </h3>
+                    <hr className="bg-black h-[3px] my-1 w-full" />
+                    <CommunityHelpRequestForm
+                      comName={name}
+                      updateState={setToggleHelpState}
+                    />
+                    <div className="flex flex-col w-full max-h-[100vh] overflow-auto">
+                      <HelpWantedCard
+                        comName={name}
+                        states={[toggleHelpState]}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          )}
-          {joined && (
-            <div className="flex flex-col items-start w-full p-2">
-              <h3 className="font-semibold text-xl capitalize">Help Wanted</h3>
-              <hr className="bg-black h-[3px] my-1 w-full" />
-              <CommunityHelpRequestForm />
-              <div className="flex flex-col w-full max-h-[100vh] overflow-auto">
-                {helpwanted.map((help, i) => (
-                  <HelpWantedCard key={i} />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+          </>
+        )
+      )}
     </>
   );
 };

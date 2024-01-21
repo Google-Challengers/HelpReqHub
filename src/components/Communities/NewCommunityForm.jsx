@@ -2,6 +2,8 @@
 
 import { useRef, useState } from "react";
 import { FaPenNib } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
+import axios from "axios";
 
 const NewCommunityForm = () => {
   const [showForm, setShowForm] = useState(false);
@@ -26,16 +28,40 @@ const NewCommunityForm = () => {
       const value = tagRef.current.value;
       setFormData((prev) => ({
         ...prev,
-        tags: [...prev.tags, value],
+        tags: [...prev.tags, value.toLowerCase()],
       }));
       tagRef.current.value = "";
     }
   };
 
+  const removeTag = (rtag) => {
+    setFormData((prev) => ({
+      ...prev,
+      tags: prev.tags.filter((tag) => tag !== rtag),
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // make request to the server
-    setShowForm((prev) => !prev);
+
+    try {
+      const res = await axios.post(`/api/user/request/community/create-new`, {
+        communityName: formData.name,
+        desc: formData.desc,
+        tags: formData.tags,
+      });
+
+      if (res.data.success) {
+        alert("New community created successfully");
+      } else {
+        alert("Error creating new community");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setShowForm((prev) => !prev);
+      setFormData((prev) => ({ ...prev, name: "", desc: "", tags: [] }));
+    }
   };
 
   return (
@@ -120,14 +146,20 @@ const NewCommunityForm = () => {
             </button>
             <div className="w-full flex flex-row flex-wrap">
               {formData.tags.map((tag, index) => (
-                <>
+                <span
+                  key={index}
+                  className="bg-zinc-800 text-white font-black text-sm m-1 p-1 flex flex-row items-center justify-between rounded-md"
+                >
+                  {tag}
                   <span
-                    key={index}
-                    className="bg-zinc-800 text-white font-black text-sm m-1 p-1 rounded-md"
+                    className="ml-1 text-sm font-normal flex items-center justify-center rounded-full bg-slate-600 cursor-pointer p-1"
+                    onClick={() => {
+                      removeTag(tag);
+                    }}
                   >
-                    {tag}
+                    <IoClose className="text-white" />
                   </span>
-                </>
+                </span>
               ))}
             </div>
           </div>
