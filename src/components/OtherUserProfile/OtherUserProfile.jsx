@@ -14,7 +14,6 @@ const OtherUserProfile = ({ userId }) => {
       const res = await axios.post(`/api/other/view-profile`, {
         other_userId: userId,
       });
-      console.log(res);
       if (res.data.success) {
         setUserDetails((prev) => res.data.profileData);
       }
