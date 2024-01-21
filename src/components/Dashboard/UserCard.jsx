@@ -80,12 +80,12 @@ const UserCard = () => {
         </>
       ) : (
         <>
-          {requests.map((request, index) => (
-            <div
-              key={index}
-              className="w-full mt-4 flex flex-row items-center overflow-x-auto"
-            >
-              <div className="min-w-[298px] flex flex-col items-center border rounded-lg shadow bg-gray-800 border-gray-700 m-2">
+          <div className="w-full mt-4 flex flex-row items-center overflow-x-auto">
+            {requests.map((request, index) => (
+              <div
+                key={index}
+                className="min-w-[298px] flex flex-col items-center border rounded-lg shadow bg-gray-800 border-gray-700 m-2"
+              >
                 <img
                   className="rounded-t-lg w-full max-w-xs h-auto md:max-w-xs border-b-2 border-solid border-gray-700 shadow-sm shadow-gray-600"
                   src={"/default-help.webp"}
@@ -148,8 +148,8 @@ const UserCard = () => {
                   )}
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
           {showDetailsWindow && (
             <>
               <hr className="h-1 bg-zinc-700 w-full m-1" />

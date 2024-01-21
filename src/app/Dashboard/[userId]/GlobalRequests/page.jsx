@@ -25,7 +25,9 @@ const GlobalRequests = () => {
               </span>
               <span className="text-xl text-blue-600 font-extrabold">{`)`}</span>
             </h4>
-            <UserCard />
+            <div className="w-full my-1">
+              <UserCard />
+            </div>
           </div>
         </div>
       </section>
