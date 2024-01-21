@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Loading, NotFound } from "../ComponentExporter";
 import { getLocaleTime } from "../ConvertTime";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const Stats = () => {
+  const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState([]);
 
@@ -130,12 +133,14 @@ const Stats = () => {
                           <span>N/A</span>
                         ) : (
                           stat.requestHandlers.map((handler, index) => (
-                            <span
+                            <Link
                               key={index}
-                              className="hover:text-blue-500 p-1 cursor-pointer"
+                              href={`/Dashboard/${session.user.name}/OtherUser/profile/${handler}`}
                             >
-                              {handler}
-                            </span>
+                              <span className="hover:text-blue-500 p-1 cursor-pointer">
+                                {handler}
+                              </span>
+                            </Link>
                           ))
                         )}
                       </td>
