@@ -5,6 +5,7 @@ import { CiBoxes, CiBag1 } from "react-icons/ci";
 const SelectRoleBtns = () => {
   const setRole = (role) => {
     localStorage.setItem("userRole", role);
+    alert("Role set to " + role);
   };
 
   return (

@@ -1,8 +1,8 @@
-import { ReceiverForm, UserCard } from "@/components/ComponentExporter";
+"use client";
+
+import { CheckRole, UserCard } from "@/components/ComponentExporter";
 
 const GlobalRequests = () => {
-  const currentRole = "supplier";
-
   return (
     <>
       <section className="w-full lg:h-screen min-h-screen overflow-x-hidden overflow-y-auto bg-gradient-to-r from-gray-200 via-zinc-400 to-slate-500 flex flex-col items-center">
@@ -14,20 +14,7 @@ const GlobalRequests = () => {
             </span>
           </h1>
         </div>
-        <h3
-          className="text-xl font-semibold p-1"
-          title="Change it in profile settings"
-        >
-          You are currently a{" "}
-          <span className="font-black text-cyan-900 uppercase text-2xl">
-            {currentRole == "receiver" ? <>Receiver</> : <>Supplier</>}
-          </span>
-        </h3>
-        {currentRole == "receiver" && (
-          <div className="m-3 p-1 flex flex-col items-start w-full">
-            <ReceiverForm />
-          </div>
-        )}
+        <CheckRole />
         <div className="mt-3 p-1 w-full flex flex-col items-start">
           <div className="flex flex-col w-full items-start">
             <h4 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-black bg-gray-400 px-3 py-1 rounded-full">
@@ -38,10 +25,7 @@ const GlobalRequests = () => {
               </span>
               <span className="text-xl text-blue-600 font-extrabold">{`)`}</span>
             </h4>
-            <div className="w-full mt-4 flex flex-row items-center overflow-x-auto">
-              <UserCard />
-              <UserCard />
-            </div>
+            <UserCard />
           </div>
         </div>
       </section>

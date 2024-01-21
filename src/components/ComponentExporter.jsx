@@ -18,3 +18,4 @@ export { default as CommunityOne } from "@/components/Communities/CommunityOne";
 export { default as NewCommunityForm } from "@/components/Communities/NewCommunityForm";
 export { default as NotFound } from "@/components/NotFound";
 export { default as Loading } from "@/components/loading";
+export { default as CheckRole } from "@/components/Role/CheckRole";

@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { FaPenNib } from "react-icons/fa";
+import axios from "axios";
 
 const ReceiverForm = () => {
   const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -22,7 +24,24 @@ const ReceiverForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // make request to the server
+    console.log(formData);
+    setLoading(true);
+
+    try {
+      const res = await axios.post(`/api/user/request/global/add`, {
+        title: formData.title,
+        desc: formData.desc,
+        time: formData.time,
+      });
+      if (res.data.success) {
+      } else {
+        alert("Error adding request");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
     setShowForm((prev) => !prev);
   };
 
@@ -103,7 +122,8 @@ const ReceiverForm = () => {
           <div className="flex flex-col items-start w-full p-1">
             <button
               type="submit"
-              className="flex flex-row items-center bg-blue-500 gap-2 m-1 p-2 rounded-md cursor-pointer text-white"
+              disabled={loading}
+              className="flex flex-row items-center bg-blue-500 disabled:cursor-wait disabled:bg-blue-300 gap-2 m-1 p-2 rounded-md cursor-pointer text-white"
             >
               <FaPenNib className="text-3xl" />
               <span className="text-xl font-black text-white">Request</span>
