@@ -3,7 +3,7 @@ import { UserModel } from "@/lib/models/user.model.js";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { getToken } from "next-auth/jwt";
-import { authOptions } from "../../auth/[...nextauth]/route.js";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route.js";
 import bcrypt from "bcrypt";
 
 export const POST = async (req, res) => {

@@ -1,13 +1,54 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { FaUpload } from "react-icons/fa";
+import { uploadUserProfileImagesToFirebaseStorage } from "@/lib/_firebase/_firebase_storage.js";
 
 const ProfileForm = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  const imageRef = useRef(null);
+  const [userId, setUserId] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+
+  const chooseNewImage = () => {
+    if (imageRef.current) imageRef.current.click();
+  };
+
+  const handleProfileImageChange = (e) => {
+    setProfileImage(e.target.files[0]);
+  };
+
+  const handleProfileImageUpload = async () => {
+    if (!profileImage || uploading) return;
+    setUploading(true);
+
+    try {
+      const uploaded = await uploadUserProfileImagesToFirebaseStorage(
+        userId,
+        profileImage
+      );
+      if (!uploaded[0]) throw new Error(uploaded[1].message);
+
+      const res = await axios.post(
+        `/api/user/update-profile/upload-new-image`,
+        { userId, imageUrl: uploaded[1] }
+      );
+      if (res.data.success) {
+        await fetchUserData();
+        setProfileImage(null);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -31,6 +72,7 @@ const ProfileForm = () => {
           contact: data.userData.contact,
           image: data.userData.image,
         }));
+        setUserId(data.userData.id);
       } else {
         alert("Error getting user profile data");
       }
@@ -93,13 +135,48 @@ const ProfileForm = () => {
     <>
       <form onSubmit={handleSubmit} className="flex flex-col items-center mb-4">
         <div className="flex flex-col w-full">
-          <img
-            src={formData.image}
-            alt="profile image"
-            width={150}
-            height={150}
-            className="w-32 h-32 rounded-full m-1 p-1 border-2 border-solid border-white"
-          />
+          <div className="flex flex-col sm:flex-row sm:items-center items-start gap-2">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              multiple={false}
+              ref={imageRef}
+              onChange={handleProfileImageChange}
+            />
+            <div className="flex flex-col items-start">
+              <img
+                src={
+                  profileImage
+                    ? URL.createObjectURL(profileImage)
+                    : formData.image
+                }
+                alt="profile image"
+                width={150}
+                height={150}
+                title="Choose new image"
+                className="w-32 h-32 cursor-pointer rounded-full m-1 p-1 border-2 border-solid border-white"
+                onClick={chooseNewImage}
+              />
+              <span className="text-slate-800 font-light text-sm">
+                * Click image to upload new
+              </span>
+            </div>
+            <button
+              type="button"
+              disabled={!profileImage}
+              className="px-2 py-3 flex flex-row items-center justify-between rounded-lg m-1 font-semibold text-xl text-white bg-emerald-700 disabled:cursor-not-allowed disabled:hidden"
+              onClick={handleProfileImageUpload}
+            >
+              <FaUpload className="mx-1" />
+              {uploading ? <>Uploading...</> : <>Upload</>}
+            </button>
+          </div>
+          {userId && (
+            <span className="text-black m-1 bg-blue-600 py-1 px-3 rounded-xl w-fit">
+              U-ID: {userId}
+            </span>
+          )}
           <label
             htmlFor="name"
             className="text-base font-thin text-black capitalize"

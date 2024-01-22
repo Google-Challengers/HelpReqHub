@@ -1,11 +1,11 @@
-import { connectToDB } from "@/lib/DBconnect.js";
-import { UserModel } from "@/lib/models/user.model.js";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { getToken } from "next-auth/jwt";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route.js";
+import { connectToDB } from "@/lib/DBconnect.js";
+import { UserModel } from "@/lib/models/user.model.js";
 
-export const GET = async (req, res) => {
+export const POST = async (req, res) => {
   try {
     // getting the session details
     const token = await getToken({ req });
@@ -22,19 +22,17 @@ export const GET = async (req, res) => {
     });
     if (!user) throw new Error(`User not found`);
 
-    // user data to be sent
-    const userData = {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      contact: user.contact,
-      image: user.image,
-    };
+    // getting the updated details
+    const { userId, imageUrl } = await req.json();
+    if (!userId || !imageUrl || String(userId) != String(user._id))
+      throw new Error(`Invalid details`);
+
+    // updating
+    await UserModel.updateOne({ _id: user._id }, { $set: { image: imageUrl } });
 
     return NextResponse.json({
       success: true,
-      message: "User data sent.",
-      userData,
+      message: "Profile has been updated.",
     });
   } catch (err) {
     return NextResponse.json({
