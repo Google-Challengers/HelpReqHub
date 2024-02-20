@@ -44,12 +44,17 @@ export const POST = async (req, res, next) => {
     let logsMembersData = [];
     const promises = logs.members.map(async (member) => {
       const m_user = await UserModel.findOne({ _id: member });
+      let isAdmin = false;
+      if (com.admins.includes(m_user._id)) {
+        isAdmin = true;
+      }
       logsMembersData.push({
         id: m_user._id,
         name: m_user.name,
         email: m_user.email,
         image: m_user.image,
         contact: m_user.contact,
+        isAdmin,
       });
     });
     await Promise.all(promises);

@@ -30,6 +30,17 @@ const MemberCard = ({ comName, states = [] }) => {
     getMembers();
   }, [...states]);
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert("Copied to clipboard: " + text);
+      })
+      .catch((error) => {
+        alert("Unable to copy to clipboard: " + error);
+      });
+  };
+
   return (
     <>
       {loading ? (
@@ -46,13 +57,27 @@ const MemberCard = ({ comName, states = [] }) => {
             key={i}
             className="flex flex-col items-start bg-white rounded-lg p-2 m-1"
           >
-            <img
-              src={member.image}
-              alt="/"
-              className="w-11 h-11 rounded-full border-2 border-solid border-white"
-            />
+            <div className="flex flex-row items-center justify-between w-full">
+              <img
+                src={member.image}
+                alt="/"
+                className="w-11 h-11 shadow-md rounded-full border-2 border-solid border-white"
+              />
+              {member.isAdmin && (
+                <span className="text-white shadow-md font-black px-3 py-1 my-2 rounded-full bg-green-600">
+                  Admin
+                </span>
+              )}
+            </div>
             <span className="text-black text-xs m-1 font-normal">
-              U-ID: {member.id}
+              U-ID:{" "}
+              <span
+                className="hover:bg-yellow-400 cursor-pointer"
+                onClick={() => copyToClipboard(member.id)}
+                title="Copy to clipboard"
+              >
+                {member.id}
+              </span>
             </span>
             <div className="flex flex-col items-start mx-1">
               <h4 className="flex flex-row items-center">

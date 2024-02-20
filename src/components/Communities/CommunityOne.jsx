@@ -12,6 +12,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Loading } from "../ComponentExporter";
 import BecomeMember from "./BecomeMember";
+import MakeAdmin from "./MakeAdmin";
 
 const CommunityOne = ({ name }) => {
   const [checksData, setChecksData] = useState({});
@@ -76,6 +77,7 @@ const CommunityOne = ({ name }) => {
                       🦄 You are{" "}
                       {!checksData?.isAdmin ? <>member</> : <>Admin</>}
                     </h4>
+                    <MakeAdmin communityName={name} />
                   </>
                 )}
               </div>
