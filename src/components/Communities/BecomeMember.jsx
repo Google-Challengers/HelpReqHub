@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const BecomeMember = ({ comName, updateState }) => {
+const BecomeMember = ({ comName, reload, updateState }) => {
   const [loading, setLoading] = useState(false);
   const [alreadyRequested, setAlreadyRequested] = useState(false);
 
@@ -28,7 +28,7 @@ const BecomeMember = ({ comName, updateState }) => {
 
   useEffect(() => {
     checkAlreadyRequested();
-  }, []);
+  }, [reload]);
 
   const handleClick = async () => {
     setLoading(true);

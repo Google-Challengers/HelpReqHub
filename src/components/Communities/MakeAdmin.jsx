@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const MakeAdmin = ({ communityName }) => {
+const MakeAdmin = ({ communityName, toggleCurrentMembers }) => {
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState("");
 
@@ -21,6 +21,7 @@ const MakeAdmin = ({ communityName }) => {
         communityName,
       });
       if (res.data.success) {
+        toggleCurrentMembers((prev) => !prev);
       }
     } catch (err) {
       console.error(err);

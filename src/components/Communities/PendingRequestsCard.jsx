@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Loading, NotFound } from "../ComponentExporter";
 
-const PendingRequestsCard = ({ comName, updateState }) => {
+const PendingRequestsCard = ({ comName, reload, updateState }) => {
   const [loading, setLoading] = useState(false);
   const [members, setMembers] = useState([]);
 
@@ -28,7 +28,7 @@ const PendingRequestsCard = ({ comName, updateState }) => {
 
   useEffect(() => {
     getMembers();
-  }, []);
+  }, [reload]);
 
   const handlePendingRequests = async (id, measure) => {
     if (confirm("Are you sure you want to " + measure + " ?")) {

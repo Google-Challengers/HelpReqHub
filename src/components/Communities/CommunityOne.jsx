@@ -13,16 +13,22 @@ import { useEffect, useState } from "react";
 import { Loading } from "../ComponentExporter";
 import BecomeMember from "./BecomeMember";
 import MakeAdmin from "./MakeAdmin";
+import { IoReloadCircle } from "react-icons/io5";
 
 const CommunityOne = ({ name }) => {
   const [checksData, setChecksData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [reloadAll, setReloadAll] = useState(false);
 
   const [toggleChecksState, setToggleChecksState] = useState(false);
   const [toggleRulesState, setToggleRulesState] = useState(false);
   const [toggleMessageState, setToggleMessageState] = useState(false);
   const [toggleHelpState, setToggleHelpState] = useState(false);
   const [addedNewMember, setAddedNewMember] = useState(false);
+
+  const handleReload = () => {
+    setReloadAll((prev) => !prev);
+  };
 
   const handleChecks = async () => {
     setLoading(true);
@@ -64,10 +70,18 @@ const CommunityOne = ({ name }) => {
             </div>
             <div className="w-full">
               <div className="my-1 p-1">
+                <div className="flex flex-row items-center justify-end my-2 px-1">
+                  <IoReloadCircle
+                    onClick={handleReload}
+                    className="text-black font-black cursor-pointer hover:animate-spin my-2 ml-2 text-3xl"
+                  />
+                  <span className="text-black font-semibold">Reload</span>
+                </div>
                 {!checksData?.joined ? (
                   <>
                     <BecomeMember
                       comName={name}
+                      reload={reloadAll}
                       updateState={setToggleChecksState}
                     />
                   </>
@@ -77,7 +91,10 @@ const CommunityOne = ({ name }) => {
                       🦄 You are{" "}
                       {!checksData?.isAdmin ? <>member</> : <>Admin</>}
                     </h4>
-                    <MakeAdmin communityName={name} />
+                    <MakeAdmin
+                      communityName={name}
+                      toggleCurrentMembers={setAddedNewMember}
+                    />
                   </>
                 )}
               </div>
@@ -92,7 +109,10 @@ const CommunityOne = ({ name }) => {
                     />
                   )}
                   <div className="flex flex-col w-full max-h-[100vh] overflow-auto">
-                    <RulesCards comName={name} states={[toggleRulesState]} />
+                    <RulesCards
+                      comName={name}
+                      states={[toggleRulesState, reloadAll]}
+                    />
                   </div>
                 </div>
                 {checksData?.joined && (
@@ -103,7 +123,10 @@ const CommunityOne = ({ name }) => {
                       </h3>
                       <hr className="bg-black h-[3px] my-1 w-full" />
                       <div className="flex flex-row w-full flex-wrap max-h-[100vh] overflow-auto">
-                        <MemberCard comName={name} states={[addedNewMember]} />
+                        <MemberCard
+                          comName={name}
+                          states={[addedNewMember, reloadAll]}
+                        />
                       </div>
                     </div>
                     {checksData?.isAdmin && (
@@ -115,6 +138,7 @@ const CommunityOne = ({ name }) => {
                         <div className="flex flex-row w-full flex-wrap max-h-[100vh] overflow-auto">
                           <PendingRequestsCard
                             comName={name}
+                            reload={reloadAll}
                             updateState={setAddedNewMember}
                           />
                         </div>
@@ -137,7 +161,7 @@ const CommunityOne = ({ name }) => {
                     <div className="flex flex-col w-full max-h-[100vh] overflow-auto">
                       <MessageCard
                         comName={name}
-                        states={[toggleMessageState]}
+                        states={[toggleMessageState, reloadAll]}
                       />
                     </div>
                   </div>
@@ -155,7 +179,7 @@ const CommunityOne = ({ name }) => {
                     <div className="flex flex-col w-full max-h-[100vh] overflow-auto">
                       <HelpWantedCard
                         comName={name}
-                        states={[toggleHelpState]}
+                        states={[toggleHelpState, reloadAll]}
                       />
                     </div>
                   </div>
