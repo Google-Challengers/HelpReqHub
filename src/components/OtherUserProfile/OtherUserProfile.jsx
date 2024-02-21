@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Loading, NotFound } from "../ComponentExporter";
+import ReviewUserForm from "./ReviewUserForm";
 
 const OtherUserProfile = ({ userId }) => {
   const [userDetails, setUserDetails] = useState();
@@ -50,7 +51,7 @@ const OtherUserProfile = ({ userId }) => {
               U-ID: {userDetails.id}
             </span>
             <h1 className="flex flex-row gap-1 items-center">
-              <span className="text-2xl font-semibold text-blue-700">
+              <span className="text-xl bg-white px-2 rounded-full font-semibold text-blue-700">
                 Name:
               </span>
               <span className="text-3xl font-black text-black uppercase">
@@ -58,22 +59,27 @@ const OtherUserProfile = ({ userId }) => {
               </span>
             </h1>
             <h2 className="flex flex-row gap-1 items-center">
-              <span className="text-2xl font-semibold text-blue-700">
+              <span className="text-xl bg-white px-2 rounded-full font-semibold text-blue-700">
                 Email:
               </span>
-              <span className="text-3xl font-black text-black">
+              <span className="text-3xl font-light text-black">
                 {userDetails.email}
               </span>
             </h2>
             <h3 className="flex flex-row gap-1 items-center">
-              <span className="text-2xl font-semibold text-blue-700">
+              <span className="text-xl bg-white px-2 rounded-full font-semibold text-blue-700">
                 Contact:
               </span>
-              <span className="text-3xl font-black text-black">
+              <span className="text-3xl font-light text-black">
                 {userDetails.contact}
               </span>
             </h3>
           </div>
+
+          <hr className="w-full h-[.5px] bg-black my-3" />
+
+          {/* Reviews Person */}
+          <ReviewUserForm userId={userId} />
         </>
       )}
     </>
