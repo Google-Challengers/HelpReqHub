@@ -10,6 +10,7 @@ export { default as ProfileForm } from "@/components/Profile/ProfileForm";
 export { default as SearchLocation } from "@/components/Location/SearchLocationBox";
 export { default as UserCard } from "@/components/Dashboard/UserCard";
 export { default as Stats } from "@/components/Dashboard/Stats";
+export { default as HelpStats } from "@/components/Dashboard/HelpStats";
 export { default as AuthProvider } from "@/components/Auth/AuthProvider";
 export { default as Wait } from "@/components/Wait/Wait";
 export { default as ReceiverForm } from "@/components/Receiver/ReceiverForm";

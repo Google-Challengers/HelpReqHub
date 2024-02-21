@@ -5,6 +5,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route.js";
 import { connectToDB } from "@/lib/DBconnect.js";
 import { RequestModel } from "@/lib/models/globalRequest/request.model.js";
 import { UserModel } from "@/lib/models/user.model";
+import { HelperModel } from "@/lib/models/globalHelps/helpers.model";
 
 export const POST = async (req, res, next) => {
   try {
@@ -49,6 +50,23 @@ export const POST = async (req, res, next) => {
       { _id: reqId },
       { $set: { requestHandlers: [...requests.requestHandlers, user._id] } }
     );
+
+    // saving to the helps collection
+    const helps = await HelperModel.findOne({ userId: user._id });
+    if (helps) {
+      if (!helps.requests.includes(reqId)) {
+        await HelperModel.updateOne(
+          { _id: helps._id },
+          { $push: { requests: reqId } }
+        );
+      }
+    } else {
+      const newHelper = new HelperModel({
+        userId: user._id,
+        requests: [reqId],
+      });
+      await newHelper.save();
+    }
 
     return NextResponse.json({
       success: true,
