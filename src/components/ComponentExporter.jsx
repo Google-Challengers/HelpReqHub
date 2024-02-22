@@ -11,6 +11,7 @@ export { default as SearchLocation } from "@/components/Location/SearchLocationB
 export { default as UserCard } from "@/components/Dashboard/UserCard";
 export { default as Stats } from "@/components/Dashboard/Stats";
 export { default as HelpStats } from "@/components/Dashboard/HelpStats";
+export { default as Reviews } from "@/components/Dashboard/Reviews";
 export { default as AuthProvider } from "@/components/Auth/AuthProvider";
 export { default as Wait } from "@/components/Wait/Wait";
 export { default as ReceiverForm } from "@/components/Receiver/ReceiverForm";

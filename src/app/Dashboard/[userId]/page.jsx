@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { HelpStats, Stats } from "@/components/ComponentExporter";
+import { HelpStats, Reviews, Stats } from "@/components/ComponentExporter";
 
 const Dashboard = ({ params }) => {
   return (
@@ -25,6 +25,7 @@ const Dashboard = ({ params }) => {
           <div className="w-full mt-4">
             <Stats />
             <HelpStats />
+            <Reviews />
           </div>
         </div>
       </section>
