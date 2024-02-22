@@ -1,4 +1,4 @@
-import { SearchLocation } from "@/components/ComponentExporter";
+import { GMap, SearchLocation } from "@/components/ComponentExporter";
 
 const Location = () => {
   return (
@@ -19,14 +19,8 @@ const Location = () => {
             <SearchLocation />
           </div>
         </div>
-        <div className="flex flex-col items-center">
-          <img
-            src={"/map.png"}
-            alt="map"
-            width={250}
-            height={250}
-            className="m-2 w-full h-auto border-2 border-solid border-white"
-          />
+        <div className="flex flex-col items-center w-full">
+          <GMap />
         </div>
       </section>
     </>
