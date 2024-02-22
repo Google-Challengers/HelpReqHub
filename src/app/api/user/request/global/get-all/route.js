@@ -46,6 +46,7 @@ export const GET = async (req, res, next) => {
         status: request.status,
         createdAt: request.createdAt,
         requestHandlers: request.requestHandlers,
+        bgImg: request.imageUrl,
       });
     });
     await Promise.all(promises);

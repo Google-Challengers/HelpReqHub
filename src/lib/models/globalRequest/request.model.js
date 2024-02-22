@@ -21,6 +21,10 @@ const requestSchema = new mongoose.Schema(
       required: [true, "Time is required"],
       trim: true,
     },
+    imageUrl: {
+      type: String,
+      default: "",
+    },
     status: {
       type: String,
       enum: ["pending", "complete"],

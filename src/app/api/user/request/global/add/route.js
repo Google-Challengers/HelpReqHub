@@ -24,7 +24,7 @@ export const POST = async (req, res, next) => {
     if (!user) throw new Error(`User not found`);
 
     // getting the request details
-    const { title, desc, time } = await req.json();
+    let { title, desc, time, imageSrc } = await req.json();
     if (!title || !desc || !time) throw new Error(`All fields are required`);
 
     // adding new request
@@ -33,6 +33,7 @@ export const POST = async (req, res, next) => {
       title,
       desc,
       time,
+      imageUrl: imageSrc,
     });
     await newRequest.save();
 

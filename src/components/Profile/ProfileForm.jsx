@@ -30,7 +30,7 @@ const ProfileForm = () => {
 
     try {
       const uploaded = await uploadUserProfileImagesToFirebaseStorage(
-        userId,
+        `profile/${userId}`,
         profileImage
       );
       if (!uploaded[0]) throw new Error(uploaded[1].message);
