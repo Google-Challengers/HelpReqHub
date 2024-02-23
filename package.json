@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
     "axios": "^1.6.5",
     "bcrypt": "^5.1.1",
     "clsx": "^2.1.0",

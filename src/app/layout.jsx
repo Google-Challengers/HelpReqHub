@@ -4,6 +4,7 @@ import {
   HomeNavigationBar,
 } from "@/components/ComponentExporter";
 import { getServerSession } from "next-auth";
+import Script from "next/script";
 
 export const metadata = {
   title: "Recyclez",
@@ -16,6 +17,11 @@ const RootLayout = async ({ children }) => {
   return (
     <>
       <html lang="en">
+        <head>
+          <Script
+            src={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}`}
+          />
+        </head>
         <body>
           <AuthProvider session={session}>
             <HomeNavigationBar />
