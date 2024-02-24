@@ -1,4 +1,4 @@
-import { ProfileForm } from "@/components/ComponentExporter";
+import { ProfileForm, SetUpLocation } from "@/components/ComponentExporter";
 
 const Profile = () => {
   return (
@@ -12,6 +12,8 @@ const Profile = () => {
         </h1>
         <div className="flex flex-col w-full p-5">
           <ProfileForm />
+          <hr className="w-full bg-black h-[.5px]" />
+          <SetUpLocation />
         </div>
       </section>
     </>

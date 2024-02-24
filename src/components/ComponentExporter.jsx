@@ -7,6 +7,7 @@ export { default as CloseIconBtn } from "@/components/CustomIcons/CloseBtn";
 export { default as Dashboard } from "@/components/Navbar/DashboardNav";
 export { default as SelectRoleBtns } from "@/components/Role/SelectRoleBtns";
 export { default as ProfileForm } from "@/components/Profile/ProfileForm";
+export { default as SetUpLocation } from "@/components/Profile/SetUpLocation";
 export { default as SearchLocation } from "@/components/Location/SearchLocationBox";
 export { default as GMap } from "@/components/Location/GMap";
 export { default as UserCard } from "@/components/Dashboard/UserCard";

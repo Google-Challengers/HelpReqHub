@@ -24,6 +24,8 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/google-map-react": "^2.1.10",
     "@types/react": "^18.2.57",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
