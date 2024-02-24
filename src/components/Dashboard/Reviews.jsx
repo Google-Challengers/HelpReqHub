@@ -52,7 +52,7 @@ const Reviews = () => {
           <p className="text-sm font-normal mt-1 p-1 text-black">
             See what you others think about you.
           </p>
-          <div className="w-full my-2 flex flex-col items-start">
+          <div className="w-full my-2 flex flex-col items-start gap-2">
             {reviews.map((review, index) => (
               <div
                 key={index}

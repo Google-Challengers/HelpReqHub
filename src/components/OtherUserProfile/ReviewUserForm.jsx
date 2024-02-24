@@ -21,9 +21,9 @@ const ReviewUserForm = ({ userId }) => {
         review: userReview,
       });
       if (res.data.success) {
-        console.log(res.data.message);
+        alert("Review successfully");
       } else {
-        console.log(res.data.error);
+        alert(res.data.error);
       }
     } catch (err) {
       console.error(err);
