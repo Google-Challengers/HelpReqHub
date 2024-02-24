@@ -1,5 +1,7 @@
 # HelpReqHub
 
+An End-to-End Helping System
+
 ![HelpReqHub](./public/default-help.webp)
 
 Our app, `HelpReqHub`, is a digital platform dedicated to fostering a culture of empathy and assistance within communities. We believe in the power of collective support. Our app connects individuals seeking help with those eager to offer assistance, creating a network of compassion. With `HelpReqHub`, no request goes unheard. Whether it's a global call for aid or a community-specific need, our platform facilitates meaningful connections and tangible acts of kindness. From global outreach to local initiatives, `HelpReqHub` is your gateway to making a positive impact. Together, we're rewriting the narrative of community support and empowerment. In a world that often feels disconnected, `HelpReqHub` bridges the gap between those in need and those willing to lend a hand. Together, we're creating a web of support that knows no bounds.
@@ -23,6 +25,26 @@ Our app, `HelpReqHub`, is a digital platform dedicated to fostering a culture of
 ![HelpReqHub](./public/DemoProject.mp4)
 
 ## 📷 Screenshots
+
+![Screenshot 1](./public/1.png)
+
+![Screenshot 2](./public/2.png)
+
+![Screenshot 3](./public/3.png)
+
+![Screenshot 4](./public/4.png)
+
+![Screenshot 5](./public/5.png)
+
+![Screenshot 6](./public/6.png)
+
+![Screenshot 7](./public/7.png)
+
+![Screenshot 8](./public/8.png)
+
+![Screenshot 9](./public/9.png)
+
+![Screenshot 10](./public/10.png)
 
 ## 🧐 Features
 
