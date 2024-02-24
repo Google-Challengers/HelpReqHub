@@ -1,3 +1,5 @@
+"use client";
+import FeedbackForm from "../../components/Feedback/Feedback";
 import {
   FaInstagramSquare,
   FaFacebookSquare,
@@ -5,7 +7,6 @@ import {
   FaTwitterSquare,
   FaWhatsapp,
 } from "react-icons/fa";
-
 const AboutUs = () => {
   const links = [
     { name: "facebook", iconname: FaFacebookSquare },
@@ -14,6 +15,14 @@ const AboutUs = () => {
     { name: "linked in", iconname: FaLinkedin },
     { name: "whatsapp", iconname: FaWhatsapp },
   ];
+  // const [feedback,SetFeedback] = useState(0)
+  const handleSubmit = ()=>{
+    console.log('Feeback submitted')
+  }
+  const handleChange = ()=>{
+    console.log('Feeback submitted')
+  }
+  
 
   return (
     <>
@@ -41,6 +50,18 @@ const AboutUs = () => {
             );
           })}
         </div>
+        <br></br>
+        <div class="bg-green-100 py-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold leading-tight text-green-900 mb-6">About Us</h2>
+        <p class="text-lg text-gray-700 leading-relaxed mb-8">At <span class="font-semibold text-blue-600">HelpReqHub</span>, we are passionate about making a positive impact on the world. Our mission is to connect communities and organizations, ensuring that no one goes hungry.</p>
+        <p class="text-lg text-gray-700 leading-relaxed mb-8">Through our innovative platform, individuals can easily request food assistance, and we take pride in sourcing fresh, quality food from local suppliers. Every item is meticulously sanitized to guarantee safety and quality.</p>
+        <p class="text-lg text-gray-700 leading-relaxed mb-8">We collaborate with NGOs dedicated to eradicating hunger, ensuring that surplus food reaches those in need efficiently and effectively. Together, we strive to create a world where access to nutritious food is a basic human right.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">Join us in our journey towards a hunger-free future. Together, we can make a difference, one meal at a time.</p>
+    </div>
+</div>
+        <FeedbackForm/>
+        
       </section>
     </>
   );
