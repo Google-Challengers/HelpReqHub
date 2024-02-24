@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Loading, NotFound } from "../ComponentExporter";
+import { Loading, NotFound , NewCommunityForm } from "../ComponentExporter";
 
 const CommunityCard = () => {
   const { data: session, status } = useSession();
@@ -12,7 +12,7 @@ const CommunityCard = () => {
   const [communities, setCommunities] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getCommunities = async () => {
+ const getCommunities = async () => {
     setLoading(true);
 
     try {
@@ -46,7 +46,12 @@ const CommunityCard = () => {
               <NotFound msg={"[!] Cannot fetch communities"} />
             </>
           ) : (
-            communities.map((community, index) => (
+                <>
+              <div className="w-full my-2 flex flex-col items-start p-2">
+          <NewCommunityForm getCommunities={getCommunities}/>
+        </div>
+        
+            {communities.map((community, index) => (
               <Link
                 href={`/Dashboard/${session?.user?.name}/Communities/Community/${community.com_name}`}
                 key={index}
@@ -92,12 +97,18 @@ const CommunityCard = () => {
                   </div>
                 </div>
               </Link>
-            ))
+            ))}
+          </>
+           
+            
           )}
+         
         </div>
+       
       )}
+     
     </>
   );
 };
 
-export default CommunityCard;
+export default CommunityCard

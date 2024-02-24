@@ -25,7 +25,7 @@ export const POST = async (req, res, next) => {
     if (!user) throw new Error(`User not found`);
 
     // getting the community details
-    const { communityName, desc, tags } = await req.json();
+    const { communityName, desc, tags,image} = await req.json();
     if (!communityName || !desc || tags.length == 0)
       throw new Error(`All fields are required`);
 
@@ -36,6 +36,7 @@ export const POST = async (req, res, next) => {
       communityName: String(communityName).replace(" ", "-"),
       desc,
       tags,
+      image
     });
     await newCommunity.save();
 

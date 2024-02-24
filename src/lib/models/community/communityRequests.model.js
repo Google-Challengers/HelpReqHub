@@ -30,7 +30,14 @@ const communityRequestSchema = new mongoose.Schema(
       type: String,
       required: [true, "Time is required"],
     },
+    image: {
+      type: String,
+      required: true,
+      default:
+        "https://upload.wikimedia.org/wikipedia/commons/f/f8/01_Icon-Community%402x.png",
+    },
   },
+  
   { timestamps: true }
 );
 

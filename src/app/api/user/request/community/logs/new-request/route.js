@@ -26,7 +26,7 @@ export const POST = async (req, res, next) => {
     if (!user) throw new Error(`User not found`);
 
     // getting the request details
-    const { communityName, title, desc, time } = await req.json();
+    const { communityName, title, desc, time , image} = await req.json();
     if (!communityName || !title || !desc || !time)
       throw new Error(`All fields are required`);
 
@@ -46,6 +46,7 @@ export const POST = async (req, res, next) => {
       title,
       desc,
       time,
+      image
     });
     await newRequest.save();
 

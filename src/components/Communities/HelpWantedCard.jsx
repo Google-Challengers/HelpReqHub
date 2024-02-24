@@ -18,6 +18,7 @@ const HelpWantedCard = ({ comName, states = [] }) => {
         { communityName: comName }
       );
       if (res.data.success) {
+        console.log(res)
         setRequests((prev) => res.data.helpWanted);
       }
     } catch (err) {
@@ -90,6 +91,12 @@ const HelpWantedCard = ({ comName, states = [] }) => {
                 By {request.time}
               </span>
             </p>
+            <h4 className="text-black m-1">
+              <span className="text-slate-700 mr-1 font-normal p-1 rounded-lg bg-yellow-500">
+                Image:
+              </span>
+              <img src = {request.help_image} className="w-full h-60 hover:scale-105 bg-black transition-all duration-100 ease-linear"></img>
+            </h4>
           </div>
         ))
       )}
