@@ -28,7 +28,7 @@ const SetUpLocation = () => {
 
     const handleError = (err) => {
       console.error(err);
-      alert("Unable to get the current location");
+      // alert("Unable to get the current location");
     };
 
     navigator.geolocation.getCurrentPosition(handlePosition, handleError);

@@ -7,7 +7,6 @@ const helperSchema = new mongoose.Schema(
       type: [
         {
           type: mongoose.Types.ObjectId,
-          unique: [true, "request id must be unique"],
           ref: "request",
         },
       ],

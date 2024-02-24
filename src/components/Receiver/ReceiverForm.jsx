@@ -68,6 +68,7 @@ const ReceiverForm = () => {
         imageSrc: formData.image,
       });
       if (res.data.success) {
+        alert("Request submitted successfully");
       } else {
         alert("Error adding request");
       }

@@ -28,6 +28,7 @@ const CommunityOne = ({ name }) => {
 
   const handleReload = () => {
     setReloadAll((prev) => !prev);
+    setToggleChecksState((prev) => !prev);
   };
 
   const handleChecks = async () => {

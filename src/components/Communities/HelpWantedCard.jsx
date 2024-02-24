@@ -18,7 +18,6 @@ const HelpWantedCard = ({ comName, states = [] }) => {
         { communityName: comName }
       );
       if (res.data.success) {
-        console.log(res)
         setRequests((prev) => res.data.helpWanted);
       }
     } catch (err) {
@@ -46,7 +45,7 @@ const HelpWantedCard = ({ comName, states = [] }) => {
         requests.map((request, i) => (
           <div
             key={i}
-            className="bg-white w-fit p-2 rounded-md flex flex-col items-start m-1"
+            className="bg-white w-full p-2 rounded-md flex flex-col items-start m-1"
           >
             <div className="flex flex-col sm:flex-row items-start w-full justify-between">
               <div className="flex flex-row items-center">
@@ -93,10 +92,13 @@ const HelpWantedCard = ({ comName, states = [] }) => {
             </p>
             <h4 className="text-black m-1">
               <span className="text-slate-700 mr-1 font-normal p-1 rounded-lg bg-yellow-500">
-                Image:
+                Images
               </span>
-              <img src = {request.help_image} className="w-full h-60 hover:scale-105 bg-black transition-all duration-100 ease-linear"></img>
             </h4>
+            <img
+              src={request.help_image}
+              className="w-full h-60 aspect-video bg-black p-1 border-2 my-1 rounded-lg overflow-hidden"
+            ></img>
           </div>
         ))
       )}
