@@ -19,8 +19,6 @@ const CommunityCard = () => {
       const res = await axios.get(`/api/user/request/community/get-all`);
       if (res.data.success) {
         setCommunities((prev) => [...res.data.communityDetails]);
-      } else {
-        alert("Error while fetching the data");
       }
     } catch (err) {
       console.error(err);
