@@ -194,7 +194,7 @@ const DashboardNav = () => {
                 alt="Logo"
                 draggable={false}
               />
-              <span className="text-xl font-semibold whitespace-nowrap text-white">
+              <span className="text-base font-semibold whitespace-nowrap text-white">
                 HelpReqHub
               </span>
             </Link>

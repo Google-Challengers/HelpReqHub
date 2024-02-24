@@ -1,11 +1,11 @@
 import { MoveToAboutPageBtn } from "@/components/ComponentExporter";
 
 const Home = () => {
-  const appName = "HelpReqHub";
+  const appName = "HelpReqHub ";
 
   return (
     <>
-      <section className="w-full min-h-screen flex flex-col items-center bg-gray-600">
+      <section className="w-full min-h-screen flex flex-col items-center bg-gray-950">
         <div className="w-full m-1 flex flex-col items-center justify-between">
           <h1 className="text-5xl sm:text-7xl md:text-9xl font-black capitalize bg-gradient-to-r from-fuchsia-400 via-pink-400 to-fuchsia-500 text-transparent bg-clip-text m-1">
             {appName}
