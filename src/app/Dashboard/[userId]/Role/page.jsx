@@ -19,25 +19,34 @@ const Role = () => {
         <div className="flex flex-row w-full p-6">
           <div className="p-2 w-1/2">
             <h3 className="font-bold text-slate-600 text-xl">
-              Who is Receiver?
+              Who is Requester/Help seeker?
             </h3>
             <p className="w-fit text-black text-left font-thin">
-              The Receiver can request the resources what he/she want. Then
-              supplier will see that request and send you message to help you
-              for that request. Then you have to contact with the supplier.
-              After the request is successfully resolved then you(receiver) will
-              have to update the status of that request.
+              As a help seeker on HelpReqHub, your main task is to articulate
+              your needs and seek assistance from the community. Your task as a
+              help seeker is to submit requests for support, outlining your
+              specific challenges or requirements, on HelpReqHub's platform.
+              Help seekers play a proactive role in identifying their needs and
+              taking steps to seek the support they require from the HelpReqHub
+              community.
             </p>
           </div>
           <div className="p-2 w-1/2">
-            <h3 className="font-bold text-slate-600 text-xl">
-              Who is Supplier?
-            </h3>
+            <h3 className="font-bold text-slate-600 text-xl">Who is Helper?</h3>
             <p className="w-fit text-black text-left font-thin">
-              Their role is to provide the goods on time and in better
-              condition. Go to{" "}
-              <span className="font-bold">Global Requests</span> tab to see all
-              the requests.
+              Your primary task is to lend a helping hand to those in need.
+              Helpers on HelpReqHub play a crucial role in providing assistance
+              and support to individuals facing various challenges. Your tasks
+              as a helper may include offering guidance, providing resources, or
+              simply being a compassionate listener to those seeking help.
+              Helpers on HelpReqHub have the opportunity to make a meaningful
+              difference in the lives of others by offering their skills, time,
+              and support. Whether it's offering practical solutions, emotional
+              support, or simply a sympathetic ear, helpers on HelpReqHub
+              contribute to building a supportive community. As a helper, you'll
+              have the chance to respond to help requests, connect with
+              individuals in need, and offer your expertise or assistance where
+              it's needed most.
             </p>
           </div>
         </div>

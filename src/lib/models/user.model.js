@@ -29,6 +29,22 @@ const authSchema = new mongoose.Schema(
       default:
         "https://upload.wikimedia.org/wikipedia/commons/5/50/User_icon-cp.svg",
     },
+    location: {
+      type: {
+        lat: {
+          type: Number,
+          required: [true, "Latitude is required"],
+        },
+        lng: {
+          type: Number,
+          required: [true, "Longitude is required"],
+        },
+      },
+      default: {
+        lat: 0,
+        lng: 0,
+      },
+    },
     method: {
       type: String,
       lowercase: true,

@@ -7,8 +7,8 @@ import { getServerSession } from "next-auth";
 import Script from "next/script";
 
 export const metadata = {
-  title: "Recyclez",
-  description: "This is our Google Solution Challenge Project.",
+  title: "HelpReqHub",
+  description: "An end-to-end helping system.",
 };
 
 const RootLayout = async ({ children }) => {
@@ -19,6 +19,7 @@ const RootLayout = async ({ children }) => {
       <html lang="en">
         <head>
           <Script
+            async
             src={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}`}
           />
         </head>

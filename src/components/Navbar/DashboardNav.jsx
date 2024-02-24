@@ -86,7 +86,7 @@ const DashboardNav = () => {
               alt="Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
-              Recyclez
+              HelpReqHub
             </span>
           </Link>
           <HamburgerIconBtn
@@ -195,7 +195,7 @@ const DashboardNav = () => {
                 draggable={false}
               />
               <span className="text-xl font-semibold whitespace-nowrap text-white">
-                Recyclez
+                HelpReqHub
               </span>
             </Link>
           </div>
