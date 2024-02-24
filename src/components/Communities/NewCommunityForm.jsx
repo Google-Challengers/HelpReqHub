@@ -4,8 +4,12 @@ import { useRef, useState } from "react";
 import { FaPenNib } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
+import { uploadUserProfileImagesToFirebaseStorage } from "@/lib/_firebase/_firebase_storage";
 
-const NewCommunityForm = () => {
+
+const NewCommunityForm = (props) => {
+
+  const CommunityCardref = useRef(null);
   const [showForm, setShowForm] = useState(false);
 
   const tagRef = useRef(null);
@@ -22,6 +26,8 @@ const NewCommunityForm = () => {
       [name]: value,
     }));
   };
+  const [imageSrc, setImageSrc] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const addNewTag = () => {
     if (tagRef.current.value) {
@@ -43,16 +49,17 @@ const NewCommunityForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const res = await axios.post(`/api/user/request/community/create-new`, {
         communityName: formData.name,
         desc: formData.desc,
         tags: formData.tags,
+        image:formData.image
       });
-
       if (res.data.success) {
+        props.getCommunities()
         alert("New community created successfully");
+        
       } else {
         alert("Error creating new community");
       }
@@ -60,10 +67,34 @@ const NewCommunityForm = () => {
       console.error(err);
     } finally {
       setShowForm((prev) => !prev);
-      setFormData((prev) => ({ ...prev, name: "", desc: "", tags: [] }));
+      setFormData((prev) => ({ ...prev, name: "", desc: "", tags: [] ,image:""}));
     }
   };
+  
+  // // choose the image file to upload
+  const handleImageChange = (e) => {
+     setImageSrc(e.target.files[0]);
+   };
+  
 
+  // // handle image upload onnecting to firebase storage
+ const handleImageUpload = async () => {
+   setUploading(true);
+   try {
+     const res = await uploadUserProfileImagesToFirebaseStorage(
+        `community_img`,
+        imageSrc
+      );
+     console.log(res[1])
+     if (res[0]) {
+       setFormData((prev) => ({ ...prev, image: res[1] }));
+     }
+    } catch (error) {
+     console.error(error);
+   } finally {
+     setUploading(false);
+   }
+ };
   return (
     <>
       {!showForm ? (
@@ -122,6 +153,41 @@ const NewCommunityForm = () => {
               className="outline-none max-w-md max-h-96 text-white font-medium text-base px-3 py-2 mx-2 w-full mb-3 mt-1 bg-slate-800"
             ></textarea>
           </div>
+          <div className="flex flex-col items-start w-full p-1"> 
+            <label
+              htmlFor="image"
+              className="my-1 text-sm text-black capitalize font-light"
+            >
+              Add Image*
+            </label>
+            <input
+              type="file"
+              name="image"
+              id="image"
+              onChange={handleImageChange}
+              required
+              accept="image/*"
+              multiple={false}
+              className="outline-none max-w-md text-white font-medium text-base px-3 py-2 mx-2 w-full mb-3 mt-1 bg-slate-800"
+            />
+            {imageSrc && (
+              <div className="flex flex-col items-center p-2">
+                <img
+                  src={URL.createObjectURL(imageSrc)}
+                  alt="/"
+                  className="max-w-sm h-auto aspect-video my-2 rounded-md shadow-md border-2 border-solid border-zinc-600 ml-2"
+                />
+                <button
+                  type="button"
+                  disabled={uploading}
+                  onClick={handleImageUpload}
+                  className="bg-transparent border-2 border-solid border-blue-600 px-3 py-2 rounded-md mx-2 text-blue-600 font-black text-base"
+                >
+                  {uploading ? <>Uploading...</> : <>Upload</>}
+                </button>
+              </div>
+            )}
+          </div> 
           <div className="flex flex-col items-start w-full p-1">
             <label
               htmlFor="tags"

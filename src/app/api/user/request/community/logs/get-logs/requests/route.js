@@ -56,6 +56,7 @@ export const POST = async (req, res, next) => {
         email: m_user.email,
         image: m_user.image,
         contact: m_user.contact,
+        help_image:request.image,
       });
     });
     await Promise.all(promises);

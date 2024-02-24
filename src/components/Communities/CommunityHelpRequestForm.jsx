@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { FaPenNib } from "react-icons/fa";
 import axios from "axios";
+import { uploadUserProfileImagesToFirebaseStorage } from "@/lib/_firebase/_firebase_storage";
+
 
 const CommunityHelpRequestForm = ({ comName, updateState }) => {
   const [showForm, setShowForm] = useState(false);
@@ -12,7 +14,35 @@ const CommunityHelpRequestForm = ({ comName, updateState }) => {
     title: "",
     desc: "",
     time: "",
+    image:""
   });
+
+
+  const [imageSrc, setImageSrc] = useState(null);
+  const [uploading, setUploading] = useState(false);
+
+  const handleImageChange = (e) => {
+    setImageSrc(e.target.files[0]);
+  };
+
+  const handleImageUpload = async () => {
+    setUploading(true);
+    console.log('sdasd')
+    try {
+      const res = await uploadUserProfileImagesToFirebaseStorage(
+         `requests/community_help_img`,
+         imageSrc
+       );
+      console.log(res[1])
+      if (res[0]) {
+        setFormData((prev) => ({ ...prev, image: res[1] }));
+      }
+     } catch (error) {
+      console.error(error);
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,11 +61,12 @@ const CommunityHelpRequestForm = ({ comName, updateState }) => {
         `/api/user/request/community/logs/new-request`,
         { communityName: comName, ...formData }
       );
+      
       if (res.data.success) {
-        setFormData((prev) => ({ title: "", desc: "", time: "" }));
+        setFormData((prev) => ({ title: "", desc: "", time: "" ,image:""}));
         updateState((prev) => !prev);
       } else {
-        alert("Error creting new request");
+        alert("Error creating new request");
       }
     } catch (e) {
       console.error(e);
@@ -119,6 +150,41 @@ const CommunityHelpRequestForm = ({ comName, updateState }) => {
               required
               className="outline-none max-w-md text-white font-medium text-base px-3 py-2 mx-2 w-full mb-3 mt-1 bg-slate-800"
             />
+            <div className="flex flex-col items-start w-full p-1"> 
+            <label
+              htmlFor="image"
+              className="my-1 text-sm text-black capitalize font-light"
+            >
+              Add Image*
+            </label>
+            <input
+              type="file"
+              name="image"
+              id="image"
+              onChange={handleImageChange}
+              required
+              accept="image/*"
+              multiple={false}
+              className="outline-none max-w-md text-white font-medium text-base px-3 py-2 mx-2 w-full mb-3 mt-1 bg-slate-800"
+            />
+            {imageSrc && (
+              <div className="flex flex-col items-center p-2">
+                <img
+                  src={URL.createObjectURL(imageSrc)}
+                  alt="/"
+                  className="max-w-sm h-auto aspect-video my-2 rounded-md shadow-md border-2 border-solid border-zinc-600 ml-2"
+                />
+                <button
+                  type="button"
+                  disabled={uploading}
+                  onClick={handleImageUpload}
+                  className="bg-transparent border-2 border-solid border-blue-600 px-3 py-2 rounded-md mx-2 text-blue-600 font-black text-base"
+                >
+                  {uploading ? <>Uploading...</> : <>Upload</>}
+                </button>
+              </div>
+            )}
+          </div> 
           </div>
           <div className="flex flex-col items-start w-full p-1">
             <button
