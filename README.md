@@ -1,8 +1,28 @@
-# HelpReqHub
+# HelpReqHub [Team: KAK-CHaLLENGeRs]
 
 An End-to-End Helping System
 
 ![HelpReqHub](./public/default-help.webp)
+
+## Index
+
+1. [Introduction](#introduction)
+2. [SDG's Goals](#sdgs-goals)
+3. [Demo](#demo)
+4. [Screenshots](#screenshots)
+5. [Features](#features)
+6. [Installation Steps](#installation-steps)
+7. [API Keys Setup](#api-keys-setup)
+    - [Firebase Setup](#firebase-setup)
+    - [Mongodb Setup](#mongodb-setup)
+    - [Next Auth Setup](#next-auth-setup)
+    - [Google APIs](#google-apis)
+8. [Contribution Guidelines](#contribution-guidelines)
+9. [Built with](#built-with)
+10. [License](#license)
+11. [Like our work](#like-our-work)
+
+## Introduction
 
 Our app, `HelpReqHub`, is a digital platform dedicated to fostering a culture of empathy and assistance within communities. We believe in the power of collective support. Our app connects individuals seeking help with those eager to offer assistance, creating a network of compassion. With `HelpReqHub`, no request goes unheard. Whether it's a global call for aid or a community-specific need, our platform facilitates meaningful connections and tangible acts of kindness. From global outreach to local initiatives, `HelpReqHub` is your gateway to making a positive impact. Together, we're rewriting the narrative of community support and empowerment. In a world that often feels disconnected, `HelpReqHub` bridges the gap between those in need and those willing to lend a hand. Together, we're creating a web of support that knows no bounds.
 
@@ -20,9 +40,25 @@ Our app, `HelpReqHub`, is a digital platform dedicated to fostering a culture of
 
 ![Version](https://img.shields.io/badge/Version-1.0.0-pink)
 
+## SDG's [Goals]
+
+- `SDG 1` - No Poverty
+- `SDG 2` - Zero Hunger
+- `SDG 17` - Partnerships for the Goals
+- `SDG 11` - Sustainable Cities and Communities
+- `SDG 8` - Decent Work and Economic Growth
+- `SDG 3` - Good Health and Wellbeing
+
+I majorly focused on partnership i.e people should have trust in one another and they should
+help others in bad situation, I have seen this in my locality since childhood that my family
+members used to deposit money to group of admins every month and those provide money on
+low interest to other member in order to help and after every year end they give back the money
+along with the interest what we should get, thought the interest is low but we help others
+through this. Other goals are also linked through this only.
+
 ## 🚀 Demo
 
-![HelpReqHub](./public/DemoProject.mp4)
+![HelpReqHub](...)
 
 ## 📷 Screenshots
 
