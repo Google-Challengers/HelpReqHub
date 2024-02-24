@@ -27,7 +27,7 @@ const HomeNav = () => {
               height={40}
               className="w-11 h-auto rounded-full shadow-sm mx-1"
             />
-            Recyclez
+            HelpReqHub
           </h1>
         </Link>
         <div className="flex flex-row items-center justify-evenly mx-1">

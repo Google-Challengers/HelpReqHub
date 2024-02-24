@@ -7,8 +7,8 @@ import { getServerSession } from "next-auth";
 import Script from "next/script";
 
 export const metadata = {
-  title: "Recyclez",
-  description: "This is our Google Solution Challenge Project.",
+  title: "HelpReqHub",
+  description: "An end-to-end helping system.",
 };
 
 const RootLayout = async ({ children }) => {
