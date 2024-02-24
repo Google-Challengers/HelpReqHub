@@ -59,6 +59,7 @@ const UserCard = () => {
         });
         if (res.data.success) {
           await getDetails(id);
+          alert("Joined successfully");
         }
       } catch (err) {
         console.error(err);

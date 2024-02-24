@@ -24,9 +24,7 @@ const Communities = () => {
             </span>
           </div>
         </div>
-        <div className="w-full my-2 flex flex-row items-start p-2">
         <CommunityCard />
-        </div>
       </section>
     </>
   );

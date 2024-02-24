@@ -20,7 +20,8 @@ const RootLayout = async ({ children }) => {
         <head>
           <Script
             async
-            src={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}`}
+            strategy="beforeInteractive"
+            src={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.GOOGLE_MAP_API_KEY}`}
           />
         </head>
         <body>
