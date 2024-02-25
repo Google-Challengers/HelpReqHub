@@ -70,7 +70,7 @@ through this. Other goals are also linked through this only.
 
 ## 🚀 Demo
 
-![HelpReqHub](...)
+[![Video](https://img.youtube.com/vi/nAlP2FoWKUs/maxresdefault.jpg)](https://www.youtube.com/watch?v=nAlP2FoWKUs)
 
 ## 📷 Screenshots
 
