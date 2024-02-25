@@ -26,6 +26,18 @@ An End-to-End Helping System
 
 Our app, `HelpReqHub`, is a digital platform dedicated to fostering a culture of empathy and assistance within communities. We believe in the power of collective support. Our app connects individuals seeking help with those eager to offer assistance, creating a network of compassion. With `HelpReqHub`, no request goes unheard. Whether it's a global call for aid or a community-specific need, our platform facilitates meaningful connections and tangible acts of kindness. From global outreach to local initiatives, `HelpReqHub` is your gateway to making a positive impact. Together, we're rewriting the narrative of community support and empowerment. In a world that often feels disconnected, `HelpReqHub` bridges the gap between those in need and those willing to lend a hand. Together, we're creating a web of support that knows no bounds.
 
+**`Problem Statement`**
+
+Basically we are creating a web application in which users can create up free account and go to the dashboard and ask
+for request/help they want and choose role between receiver/requestor or supplier/helper and other(suppliers/helpers)
+who are willingly want to help him/her can help, he/she can also create community/groups and members will join that community and within that community only they can ask for help and previous one was globally i.e every logged person can see the request.
+
+- a community-driven platform that connects individuals in need with willing helpers
+- aims to reduce social inequality and build sustainable communities, contributing to the United Nations Sustainable Development Goals of No Poverty, Zero Hunger, Reduced Inequality, and Sustainable Cities and Communities.
+- It tackles issues of poverty, hunger, and limited access to resources by facilitating the redistribution of surplus food from events and hotels to those facing food-related hardships.
+- Additionally, the platform empowers users to discreetly seek financial assistance within trusted
+communities, addressing privacy concerns. AND MUCH MORE...
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Built with Next.js](https://img.shields.io/badge/Built_with-Next.js-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)
@@ -58,7 +70,7 @@ through this. Other goals are also linked through this only.
 
 ## 🚀 Demo
 
-![HelpReqHub](...)
+[![Video](https://img.youtube.com/vi/nAlP2FoWKUs/maxresdefault.jpg)](https://www.youtube.com/watch?v=nAlP2FoWKUs)
 
 ## 📷 Screenshots
 
@@ -98,8 +110,17 @@ through this. Other goals are also linked through this only.
 - `*Mobile App Support`: Develop a mobile app version of the platform to provide users with convenient access to HelpReqHub on their smartphones and tablets.
 - `Integration with External Services`: Integrate with external services such as mapping APIs, payment gateways, social media platforms, or volunteer management tools to enhance functionality and user experience.
 - `*Accessibility and Localization`: Ensure the platform is accessible to users with disabilities and supports multiple languages and cultural preferences to cater to a diverse user base.
+- `Feedback`: Collect user feedback systematically and iteratively improve the platform based on user suggestions. Prioritize features that enhance user experience and address emerging needs.
 
-- _* (In Making)_
+- _* (In Making [Future])_
+
+## Architecture
+
+- Frontend (Next.js and Tailwind CSS) This component is responsible for rendering the user interface, handling user interactions, and communicating with the backend services. It includes pages for account creation, dashboards, request creation, and community management.
+
+- Authentication (Firebase Authentication)Manages user authentication, registration, and login. Firebase Authentication provides secure and easy-to-integrate authentication services, ensuring that only authorized users can access the application.
+
+- MongoDB Database and Firebase Storage (for additional data storage)
 
 ## 🛠️ Installation Steps
 
